@@ -1,6 +1,6 @@
 export const formModels = {
     p1: {
-        form1: {
+        'form1': {
             income: {
                 value: '',
                 rules: {
@@ -12,7 +12,20 @@ export const formModels = {
                     extra: {
                         text: '万元'
                     }
-                }
+                },
+                validators: [
+                    {
+                        name: '验证父母年龄',
+                        fields: ['p2-form1-tax'],
+                        codes: `
+                          if ($$.number(0) > $$.number(1)) {
+                              return $$.pass()
+                          } else {
+                              return $$.fail(0, '父母的年龄小于子女的年龄') 
+                          }`
+                    }
+                ],
+                fillers: []
             },
             income2: {
                 value: '',
@@ -28,7 +41,7 @@ export const formModels = {
                 }
             }
         },
-        form2: {
+        'form2': {
             income: {
                 value: '',
                 rules: {
@@ -45,7 +58,7 @@ export const formModels = {
         }
     },
     p2: {
-        form1: {
+        'form1': {
             tax: {
                 value: '',
                 rules: {
@@ -62,7 +75,7 @@ export const formModels = {
         }
     },
     p3: {
-        form1: {
+        'form1': {
             other: {
                 value: '',
                 rules: {
