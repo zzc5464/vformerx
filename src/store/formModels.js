@@ -1,6 +1,6 @@
 export const formModels = {
     p1: {
-        form1: {
+        'form1': {
             income: {
                 value: '',
                 rules: {
@@ -28,7 +28,7 @@ export const formModels = {
                 }
             }
         },
-        form2: {
+        'form2': {
             income: {
                 value: '',
                 rules: {
@@ -45,7 +45,7 @@ export const formModels = {
         }
     },
     p2: {
-        form1: {
+        'form1': {
             tax: {
                 value: '',
                 rules: {
@@ -62,7 +62,7 @@ export const formModels = {
         }
     },
     p3: {
-        form1: {
+        'form1': {
             other: {
                 value: '',
                 rules: {

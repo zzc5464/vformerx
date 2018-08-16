@@ -52,6 +52,80 @@ function getData () {
   })
 }
 
+function $$ (fieldName) {
+
+}
+
+// function BIRTHDAY_CHECK ('p1-form1-income', 'p2-form1-tax') {
+//     if ($$(0) > $$(1)) {
+//         return $$.pass()
+//     } else {
+//         return $$.fail(0, '父母的年龄小于子女的年龄') 
+//     }
+// }
+//
+//
+// return $$('p1-form1-income') > $$('p2-form2-tax')
+
+const json = [{
+  fields: ['p1-form2-income', 'p2-form1-tax'],
+  codes: `
+    $$.set(0, $$(1));
+    if ($$.number(0) > $$.number(1)) {
+      return $$.pass()
+    } else {
+        return $$.fail(0, '父母的年龄小于子女的年龄') 
+    }`
+}, {
+  fields: ['p1-form1-income2', 'p2-form1-tax'],
+  codes: `
+    if ($$.number(1) > $$.number(0)) {
+        return $$.pass()
+    } else {
+        return $$.fail(0, '这是一个出错原因，哈哈哈') 
+    }`
+}]
+
+function validate (callback, formValues, ...field) {
+  function $$ (col) {
+    if (field.length > col) {
+      return formValues[field[col]]
+    } else {
+      return undefined
+    }
+  }
+
+  for (let i=0; i<field.length; i++) {
+    if (typeof $$(i) === 'undefined') {
+      return {
+        pass: true,
+        ignore: true
+      }
+    }
+  }
+
+  $$.number = function (col) {
+    return parseInt($$(col))
+  }
+
+  $$.fail = function (col, reason) {
+    return {
+      pass: false,
+      field: field[col],
+      reason: reason
+    }
+  }
+
+  $$.pass = function () {
+    return {
+      pass: true
+    }
+  }
+
+  return callback($$);
+}
+
+
 const store = new Vuex.Store({
   state: {
     validators: [
@@ -67,18 +141,27 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    validate (state, f1, f2) {
-      let validators = [ Func1 ];
-      validators.forEach((func) => {
-        func(state, data, 'income', 'address')
-      })
-    },
     dataUpdated (state, v) {
       for (let key in v.value) {
         state.formValues[`${v.name}-${key}`] = v.value[key];
+
+        let sections = v.name.split('-');
+        console.log(`[${sections[0]}][${sections[1]}][${key}]`);
+        state.formModels[sections[0]][sections[1]][key].value = v.value[key];
       }
 
       console.log(state.formValues);
+
+      let result = [];
+      json.forEach((item) => {
+        let callback = eval(`$$ => {${item.codes}}`);
+        let ret = validate(callback, state.formValues, ...item.fields);
+        if (!ret.pass) {
+          result.push(ret);
+        }
+      })
+
+      console.log(result)
     },
     insert (state) {
       state.formModels[0].push({
