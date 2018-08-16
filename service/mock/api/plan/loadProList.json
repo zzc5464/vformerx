@@ -1,0 +1,322 @@
+{"errorMsg": "",
+  "errorCode": "",
+  "pageNum": null,
+  "pageSize": null,
+  "totalNum": null,
+  "totalPage": null,
+  "value": {
+    "content": {
+      "insurant": {
+        "birthday": "1983-01-01",
+        "certType": "0",
+        "gmtModified": null,
+        "occupation": "1050104",
+        "gmtCreated": null,
+        "companyName": "众安科技",
+        "modifier": "3",
+        "salary": "48",
+        "relation": "00",
+        "vehicle": "私家车,公务车",
+        "occupationDesc": "工厂、企业负责人",
+        "applyId": null,
+        "isDeleted": "N",
+        "companZipCode": null,
+        "id": null,
+        "addr": {
+          "province": "110000",
+          "provinceDesc": "北京市",
+          "city": "110100",
+          "cityDesc": "北京市",
+          "district": "110101",
+          "districtDesc": "东城区",
+          "detail": "圆明园路真光大楼"
+        },
+        "socialInsurance": "",
+        "email": "33333333@qq.com",
+        "frontImgUrl": null,
+        "creator": "2",
+        "citizenship": "CHN",
+        "degree": "10",
+        "mobile": "13817324474",
+        "backImgUrl": null,
+        "zipcode": "123456",
+        "certValidity": "9999-01-01",
+        "certNo": "310103199612132434",
+        "genderCode": "F",
+        "pinyin": "guoguohui",
+        "hobbies": "影视,文艺,投资,数码产品,体育,购物,餐饮",
+        "telphone": "010-56432245",
+        "name": "郭国辉",
+        "custType": "1",
+        "marrige": "0",
+        "businessPhone": "0756-3852101",
+        "age": 35,
+        "housingSituation": "租用,单位住房"
+      },
+      "totalPremium": "0.00",
+      "planId": "1051518503318964",
+      "productTabList": [{ "productId": "HQL00103", "abbrName": "百万乐途" }],
+      "proposalId": null,
+      "productList": [
+        {
+          "coverPath": "/product/HQL00103/PREHQL00103.png",
+          "pay_code": "term_10",
+          "pay_freq": "年交",
+          "autoAdd": false,
+          "type": 1,
+          "coverAbsolutePath":
+            "https://hq-app-test.zhongan.io/product/HQL00103/PREHQL00103.png",
+          "isRider": false,
+          "isShowBeneficiary": true,
+          "coverShare":
+            "https://hq-app-test.zhongan.io/product/HQL00103/SHAREHQL00103.png",
+          "pay_freq_value": 1,
+          "insure_code": "term_30",
+          "productId": "HQL00103",
+          "isMain": true,
+          "hasRider": false,
+          "pay": "10年期",
+          "isShowApplicantInform": null,
+          "isMulti": null,
+          "riderList": [],
+          "pay_code_default": "term_10",
+          "inputMode": "amount",
+          "name": "横琴百万乐途两全保险",
+          "bindProduct": null,
+          "pay_mode_code": 0,
+          "riderLists": null,
+          "code": "13020",
+          "isPowerful": null,
+          "abbrName": "百万乐途",
+          "pay_value": 10,
+          "rule": [],
+          "hasCv": "false",
+          "insure": "30年期",
+          "premium": "0.00",
+          "parentCode": null,
+          "vendor": "hengqin",
+          "isAnnuity": false,
+          "insure_mode": "term",
+          "productType": "life",
+          "turnToPowerful": null,
+          "clause": [
+            {
+              "name": "《横琴百万乐途两全保险条款》",
+              "value": "/product/HQL00103/HQL00103.pdf"
+            }
+          ],
+          "amount_value": "0",
+          "amount": "0元",
+          "isLong": true,
+          "quantity": 0.0,
+          "endRemark": "",
+          "pay_freq_code": "year",
+          "insure_period": 30,
+          "insure_value": 30,
+          "pay_period": 10,
+          "insure_mode_code": 0,
+          "commodityId": "1526381439038_2692_M0",
+          "parentId": null,
+          "clauseAbsolutePath":
+            "https://hq-app-test.zhongan.io/product/HQL00103/HQL00103.pdf",
+          "factors": [
+            {
+              "title": "交费频次",
+              "type": "select",
+              "list": [
+                { "code": "single", "text": "一次交清" },
+                { "code": "year", "text": "年交" }
+              ],
+              "value": "year",
+              "key": "pay_freq"
+            },
+            {
+              "title": "交费期间",
+              "type": "select",
+              "list": [
+                { "code": "single", "text": "一次交清" },
+                { "code": "term_3", "text": "3年期" },
+                { "code": "term_5", "text": "5年期" },
+                { "code": "term_10", "text": "10年期" }
+              ],
+              "value": "term_10",
+              "key": "pay"
+            },
+            {
+              "title": "保险期间",
+              "type": "select",
+              "list": [
+                { "code": "term_20", "text": "20年期" },
+                { "code": "term_30", "text": "30年期" }
+              ],
+              "value": "term_30",
+              "key": "insure"
+            },
+            {
+              "type": "input",
+              "title": "保险金额",
+              "value": 0.0,
+              "key": "amount"
+            }
+          ],
+          "pay_mode": "term",
+          "clausePath": "/product/HQL00103/HQL00103.pdf",
+          "age": 35
+        },
+        {
+          "coverPath": "/product/HQL00103/PREHQL00103.png",
+          "pay_code": "term_10",
+          "pay_freq": "年交",
+          "autoAdd": false,
+          "type": 2,
+          "coverAbsolutePath":
+          "https://hq-app-test.zhongan.io/product/HQL00103/PREHQL00103.png",
+          "isRider": false,
+          "isShowBeneficiary": true,
+          "coverShare":
+          "https://hq-app-test.zhongan.io/product/HQL00103/SHAREHQL00103.png",
+          "pay_freq_value": 1,
+          "insure_code": "term_30",
+          "productId": "HQL00105",
+          "isMain": true,
+          "hasRider": false,
+          "pay": "10年期",
+          "isShowApplicantInform": null,
+          "isMulti": null,
+          "riderList": [],
+          "pay_code_default": "term_10",
+          "inputMode": "amount",
+          "name": "横琴1231231万乐途两全保险",
+          "bindProduct": null,
+          "pay_mode_code": 0,
+          "riderLists": null,
+          "code": "13020",
+          "isPowerful": null,
+          "abbrName": "百万乐途",
+          "pay_value": 10,
+          "rule": [],
+          "hasCv": "false",
+          "insure": "30年期",
+          "premium": "0.00",
+          "parentCode": null,
+          "vendor": "hengqin",
+          "isAnnuity": false,
+          "insure_mode": "term",
+          "productType": "life",
+          "turnToPowerful": null,
+          "clause": [
+            {
+              "name": "《横琴百万乐途两全保险条款》",
+              "value": "/product/HQL00103/HQL00103.pdf"
+            }
+          ],
+          "amount_value": "0",
+          "amount": "0元",
+          "isLong": true,
+          "quantity": 0.0,
+          "endRemark": "",
+          "pay_freq_code": "year",
+          "insure_period": 30,
+          "insure_value": 30,
+          "pay_period": 10,
+          "insure_mode_code": 0,
+          "commodityId": "1526381439038_2692_M0",
+          "parentId": null,
+          "clauseAbsolutePath":
+          "https://hq-app-test.zhongan.io/product/HQL00103/HQL00103.pdf",
+          "factors": [
+            {
+              "title": "交费频次",
+              "type": "select",
+              "list": [
+                { "code": "single", "text": "一次交清" },
+                { "code": "year", "text": "年交" }
+              ],
+              "value": "year",
+              "key": "pay_freq"
+            },
+            {
+              "title": "交费期间",
+              "type": "select",
+              "list": [
+                { "code": "single", "text": "一次交清" },
+                { "code": "term_3", "text": "3年期" },
+                { "code": "term_5", "text": "5年期" },
+                { "code": "term_10", "text": "10年期" }
+              ],
+              "value": "term_10",
+              "key": "pay"
+            },
+            {
+              "title": "保险期间",
+              "type": "select",
+              "list": [
+                { "code": "term_20", "text": "20年期" },
+                { "code": "term_30", "text": "30年期" }
+              ],
+              "value": "term_30",
+              "key": "insure"
+            },
+            {
+              "type": "input",
+              "title": "保险金额",
+              "value": 0.0,
+              "key": "amount"
+            }
+          ],
+          "pay_mode": "term",
+          "clausePath": "/product/HQL00103/HQL00103.pdf",
+          "age": 35
+        }
+      ],
+      "applicant": {
+        "birthday": "1983-01-01",
+        "certType": "0",
+        "gmtModified": null,
+        "occupation": "1050104",
+        "gmtCreated": null,
+        "companyName": "众安科技",
+        "modifier": "3",
+        "salary": "48",
+        "relation": "00",
+        "vehicle": "私家车,公务车",
+        "occupationDesc": "工厂、企业负责人",
+        "applyId": null,
+        "isDeleted": "N",
+        "companZipCode": null,
+        "id": null,
+        "addr": {
+          "province": "110000",
+          "provinceDesc": "北京市",
+          "city": "110100",
+          "cityDesc": "北京市",
+          "district": "110101",
+          "districtDesc": "东城区",
+          "detail": "圆明园路真光大楼"
+        },
+        "socialInsurance": "",
+        "email": "33333333@qq.com",
+        "frontImgUrl": null,
+        "creator": "2",
+        "citizenship": "CHN",
+        "degree": "10",
+        "mobile": "13817324474",
+        "backImgUrl": null,
+        "zipcode": "123456",
+        "certValidity": "9999-01-01",
+        "certNo": "310103199612132434",
+        "genderCode": "F",
+        "pinyin": "guoguohui",
+        "hobbies": "影视,文艺,投资,数码产品,体育,购物,餐饮",
+        "telphone": "010-56432245",
+        "name": "郭国辉",
+        "custType": "1",
+        "marrige": "0",
+        "businessPhone": "0756-3852101",
+        "age": 35,
+        "housingSituation": "租用,单位住房"
+      }
+    }
+  },
+  "success": true
+}

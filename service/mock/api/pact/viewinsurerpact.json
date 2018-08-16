@@ -1,0 +1,804 @@
+{
+  "errorCode": "",
+  "errorMsg": "",
+  "success": true,
+  "value": {
+    "accountModel": {
+      "accountName": "阿三",
+      "bankName": "中国工商银行",
+      "bankNo": "7276262627771778"
+    },
+    "agent": {
+      "salesChannel": "个人销售普通单"
+    },
+    "applicant": [
+      {
+        "name": "姓名",
+        "value": "阿三"
+      },
+      {
+        "name": "性别",
+        "value": "男"
+      },
+      {
+        "name": "年龄",
+        "value": "26"
+      },
+      {
+        "name": "婚姻状况"
+      },
+      {
+        "name": "国籍",
+        "value": "中国"
+      },
+      {
+        "name": "证件类型",
+        "value": "身份证"
+      },
+      {
+        "name": "证件号码",
+        "value": "430101199203010050"
+      },
+      {
+        "name": "出生日期",
+        "value": "1992-03-01"
+      },
+      {
+        "name": "工作单位",
+        "value": "工作单位"
+      },
+      {
+        "name": "年收入",
+        "value": "100万元"
+      },
+      {
+        "name": "职业",
+        "value": "营业员"
+      },
+      {
+        "name": "职业代码",
+        "value": "4010101"
+      },
+      {
+        "name": "手机",
+        "value": "18324549799"
+      },
+      {
+        "name": "固定电话",
+        "value": ""
+      },
+      {
+        "name": "联系地址",
+        "value": "河南省郑州市中原区详细地址"
+      },
+      {
+        "name": "联系邮编",
+        "value": "084546"
+      },
+      {
+        "name": "电子邮箱",
+        "value": ""
+      },
+      {
+        "name": "是被保险人",
+        "value": "父母"
+      }
+    ],
+    "applicantInform": [
+      {
+        "ame": "qtype1",
+        "props": {
+          "pform": {
+            "height": "",
+            "weight": ""
+          },
+          "previewTitle": "请告知您的身高和体重？"
+        }
+      },
+      {
+        "ame": "qtype2",
+        "props": {
+          "pform": {
+            "firstdetail": "d",
+            "firststate": false,
+            "tworeaso": "",
+            "twostate": ""
+          },
+          "pitem1defaultIdex": "d",
+          "pitem2Title": "您是否已戒烟",
+          "pitem2defaultIdex": "1",
+          "pitems": [
+            {
+              "title": "平均每日吸烟2包以上",
+              "value": "a"
+            },
+            {
+              "title": "平均每日吸烟1包-2包",
+              "value": "b"
+            },
+            {
+              "title": "平均每日吸烟1包以内",
+              "value": "c"
+            },
+            {
+              "title": "从不吸烟",
+              "value": "d"
+            }
+          ],
+          "pitems2": [
+            {
+              "title": "是",
+              "value": "y"
+            },
+            {
+              "title": "否",
+              "value": ""
+            }
+          ],
+          "previewTitle": "下述哪种描述符合您吸烟情况?",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype3",
+        "props": {
+          "defaultIdex": "1",
+          "pform": {
+            "firstdetail": "d",
+            "firststate": false,
+            "tworeaso": "",
+            "twostate": ""
+          },
+          "pitem2Title": "您是否已戒酒",
+          "pitems": [
+            {
+              "title": "平均每日饮酒白酒1斤以上，或啤酒8瓶，或红酒2瓶以上",
+              "value": "a"
+            },
+            {
+              "title": "平均每日饮酒白酒半斤以内，或啤酒4瓶，或红酒1瓶以内",
+              "value": "b"
+            },
+            {
+              "title": "饮酒量在第1项和第2项间",
+              "value": "c"
+            },
+            {
+              "title": "偶尔或社交性饮酒",
+              "value": "d"
+            }
+          ],
+          "pitems2": [
+            {
+              "title": "是",
+              "value": "y"
+            },
+            {
+              "title": "否",
+              "value": ""
+            }
+          ],
+          "previewTitle": "下述哪种描述最符合您的饮酒情况?",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype4",
+        "props": {
+          "pform": {
+            "firstdetail": "c",
+            "firstreaso": "",
+            "firststate": false
+          },
+          "pitems": [
+            {
+              "title": "一年内曾去医院进行过门诊的检查、服药、手术或其他治疗",
+              "value": "a"
+            },
+            {
+              "title": "二年内曾有医学检查（包括健康体检）结果异常",
+              "value": "b"
+            },
+            {
+              "title": "五年内曾住院检查或治疗（包括入住疗养院、康复医院等医疗机构）",
+              "value": "c"
+            }
+          ],
+          "previewTitle": "您是否目前或过去曾进行过以下检查或治疗？",
+          "ptitle": "您是否目前或过去曾进行过以下检查或治疗？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype5",
+        "props": {
+          "defaultIdex": "3",
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "pquestioIfo": "反复头痛或眩晕、晕厥、咯血、胸痛、呼吸困难、呕血、黄疸、便血、听力下降、耳鸣、复视、视力明显下降、原因不明皮肤病和粘膜及齿龈出血、原因不明的发热、体重下降超过5公斤、                          原因不明的肌肉萎缩、原因不明的包块或肿物、身体的其他感觉异常或活动障碍。",
+          "previewTitle": "您是否目前或过去一年内曾有过下列症状?",
+          "ptitle": "您是否目前或过去一年内曾有过下列症状?",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype6",
+        "props": {
+          "defaultIdex": [
+            "a",
+            "b",
+            "c"
+          ],
+          "pform": {
+            "firstdetail": [],
+            "firstreaso": "",
+            "firststate": false
+          },
+          "pitems": [
+            {
+              "title": "脑、神经系统及精神方面疾病，例如：癫痫、脑中风、脑炎、脑膜炎、脑血管瘤、运动神经元病、阿尔茨海默氏症、帕金森氏综合症、脊髓疾病、重症肌无力、多发性硬化、抑郁症、精神病、脑部手术史",
+              "value": "a"
+            },
+            {
+              "title": "心血管系统疾病，例如：高血压、冠心病、心绞痛、心律失常、心肌梗塞、先天性心脏病、风湿性心脏病、心肌病、室壁瘤、动脉瘤、心脏瓣膜病、主动脉疾病、下肢静脉曲张",
+              "value": "b"
+            },
+            {
+              "title": "呼吸系统疾病，例如：慢性支气管炎、肺气肿、肺心病、哮喘、肺结核、肺栓塞、支气管扩张、尘肺、间质性肺病、肺纤维化",
+              "value": "c"
+            },
+            {
+              "title": "消化系统疾病，例如：胃和/或十二指肠溃疡、胰腺炎、肝炎（请注明类型）、乙肝或丙肝病毒携带、多囊肝、肝内胆管炎、肝硬化、胆结石、慢性或溃疡性结肠炎、克隆病、腹部手术史",
+              "value": "d"
+            },
+            {
+              "title": "泌尿系统疾病， 例如：血尿、蛋白尿、尿路畸形、肾炎、肾病、肾脏功能不全、尿毒症、肾移植、肾积水、肾囊肿、泌尿系统结石、泌尿系统手术史",
+              "value": "e"
+            },
+            {
+              "title": "骨骼、肌肉、结缔组织的疾病，例如：类风湿性关节炎、强直性脊柱炎、椎管狭窄、脊柱裂、股骨头坏死、骨性关节炎、骨髓炎、皮肌炎、肌营养不良症、干燥综合症、系统性红斑狼疮",
+              "value": "f"
+            },
+            {
+              "title": "内分泌、血液系统、免疫系统疾病，例如：糖尿病、痛风、甲状腺或甲状旁腺疾病、白血病、血友病、再生障碍性贫血、地中海贫血、艾滋病或艾滋病病毒（HIV）携带",
+              "value": "g"
+            },
+            {
+              "title": "五官科疾病，例如：视网膜出血或剥离、青光眼、白内障、高度近视（800度以上）、美尼尔病、五官手术史",
+              "value": "h"
+            },
+            {
+              "title": "以上未提及的肿瘤，包括：肉瘤、癌、良性肿瘤、息肉、囊肿",
+              "value": "i"
+            }
+          ],
+          "previewTitle": "您是否目前患有或过去曾经患过下列疾病或手术史？",
+          "ptitle": "您是否目前患有或过去曾经患过下列疾病或手术史？",
+          "toggle": false
+        }
+      },
+      {
+        "ame": "qtype7",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "previewTitle": "您是否曾有滥用药物或服用毒品？",
+          "ptitle": "您是否曾有滥用药物或服用毒品？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype8",
+        "props": {
+          "pform": {
+            "firststate": false
+          },
+          "previewTitle": "您是否有智能障碍？",
+          "ptitle": "您是否有智能障碍？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype8a",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "previewTitle": "是否有失明、聋哑及言语、咀嚼或身体其他部位缺损、残疾或功能障碍？",
+          "ptitle": "是否有失明、聋哑及言语、咀嚼或身体其他部位缺损、残疾或功能障碍？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype9",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "previewTitle": "您的父母、子女、兄弟姐妹是否有患癌症、心脑血管病症、白血病、血友病、糖尿病、多囊肝、多囊肾、肠息肉或其他遗传性疾病？",
+          "ptitle": "您的父母、子女、兄弟姐妹是否有患癌症、心脑血管病症、白血病、血友病、糖尿病、多囊肝、多囊肾、肠息肉或其他遗传性疾病？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype10",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false,
+            "threereaso": "",
+            "threestate": false,
+            "tworeaso": "",
+            "twostate": false
+          },
+          "ptitle": "女性告知事项",
+          "ptitle1": "您是否目前怀孕？",
+          "ptitle2": "您怀孕及生产期间是否有合并症？",
+          "ptitle3": "您是否曾有阴道异常流血、畸胎瘤、葡萄胎、盆腔炎或其他任何乳房、子宫、卵巢的疾病？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype11",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false,
+            "threereaso": "",
+            "threestate": false,
+            "tworeaso": "",
+            "twostate": false,
+            "weight": ""
+          },
+          "ptitle": "少儿告知事项",
+          "ptitle1": "出生时体重公斤",
+          "ptitle2": "是否为双胞胎或多胞胎？是否为早产、难产？出生时是否曾有产伤、窒息等异常情况？",
+          "ptitle3": "是否有畸形、发育迟缓、惊厥、抽搐、脑瘫、先天性或遗传性疾病？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype17",
+        "props": {
+          "pform": {
+            "icome": ""
+          },
+          "previewTitle": "最近两年平均的固定年收入"
+        }
+      },
+      {
+        "ame": "qtype12",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false,
+            "tworeaso": "",
+            "twostate": false
+          },
+          "ptitle": "您是否有机动车驾驶执照？",
+          "ptitle1": "您是否曾违章驾车并发生交通事故？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype13",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "previewTitle": "您是否有参加赛车、赛马、搏击类运动、攀岩、潜水、滑雪、蹦极、飞行、探险、特技活动及其它高风险活动的爱好？",
+          "ptitle": "您是否有参加赛车、赛马、搏击类运动、攀岩、潜水、滑雪、蹦极、飞行、探险、特技活动及其它高风险活动的爱好？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype14",
+        "props": {
+          "pform": {
+            "firstdetail": "",
+            "firstmoth": "",
+            "firstreaso": "",
+            "firststate": false,
+            "twodetail": "",
+            "twomoth": "",
+            "tworeaso": "",
+            "twostate": false
+          },
+          "ptitle": "在过去的两年中，您是否在本地以外的国家或地区（包括外地或境外）连续居住超过三个月？",
+          "ptitle1": "未来一年，您是否计划出国？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype15",
+        "props": {
+          "pform": {
+            "firstreaso": "",
+            "firststate": false
+          },
+          "previewTitle": "您目前是否已有或正在申请除本公司以外的人身保险？",
+          "ptitle": "您目前是否已有或正在申请除本公司以外的人身保险？",
+          "toggle": true
+        }
+      },
+      {
+        "ame": "qtype16",
+        "props": {
+          "defaultIdex": "d",
+          "pform": {
+            "firstdetail": [],
+            "firststate": false,
+            "twodetail": [],
+            "tworeaso": ""
+          },
+          "pitems": [
+            {
+              "title": "人寿保险",
+              "value": "a"
+            },
+            {
+              "title": "重大疾病保险",
+              "value": "b"
+            },
+            {
+              "title": "住院医疗保险",
+              "value": "c"
+            },
+            {
+              "title": "意外保险",
+              "value": "d"
+            },
+            {
+              "title": "其他保险",
+              "value": "e"
+            }
+          ],
+          "pitems2": [
+            {
+              "title": "拒保",
+              "value": "a"
+            },
+            {
+              "title": "延期",
+              "value": "b"
+            },
+            {
+              "title": "附加条件或加费承保",
+              "value": "c"
+            },
+            {
+              "title": "提出或已经得到理赔",
+              "value": "d"
+            }
+          ],
+          "previewTitle": "您是否投保其他保险公司的下列产品时，被非标准体承保或申请过理赔？",
+          "ptitle": "您是否投保其他保险公司的下列产品时，被非标准体承保或申请过理赔？",
+          "title": "您是否已戒酒",
+          "toggle": true
+        }
+      }
+    ],
+    "canAir": true,
+    "insurants": [
+      {
+        "insured": [
+          {
+            "name": "姓名",
+            "value": "阿三"
+          },
+          {
+            "name": "性别",
+            "value": "男"
+          },
+          {
+            "name": "年龄",
+            "value": "26"
+          },
+          {
+            "name": "婚姻状况"
+          },
+          {
+            "name": "国籍",
+            "value": "中国"
+          },
+          {
+            "name": "证件类型",
+            "value": "身份证"
+          },
+          {
+            "name": "证件号码",
+            "value": "430101199203010051"
+          },
+          {
+            "name": "出生日期",
+            "value": "1992-03-01"
+          },
+          {
+            "name": "工作单位",
+            "value": "工作单位"
+          },
+          {
+            "name": "年收入",
+            "value": "100万元"
+          },
+          {
+            "name": "职业",
+            "value": "营业员"
+          },
+          {
+            "name": "职业代码",
+            "value": "4010101"
+          },
+          {
+            "name": "手机",
+            "value": "18324549799"
+          },
+          {
+            "name": "固定电话",
+            "value": ""
+          },
+          {
+            "name": "联系地址",
+            "value": "河南省郑州市中原区详细地址"
+          },
+          {
+            "name": "联系邮编",
+            "value": "084546"
+          }
+        ],
+        "payInfo": [
+          {
+            "name": "期交保费合计",
+            "value": "null元"
+          },
+          {
+            "name": "交费频次",
+            "value": "年交"
+          },
+          {
+            "name": "选择电子函件",
+            "value": "否"
+          }
+        ],
+        "productList": [
+          {
+            "abbrName": "优品添利",
+            "age": 25,
+            "amount": "52700元",
+            "amount_value": "52700",
+            "autoAdd": false,
+            "clausePath": "/product/HQL00104/HQL00104.pdf",
+            "code": "14030",
+            "coverPath": "/product/commonProduct/PREcommonProduct.png",
+            "hasCv": "false",
+            "inputMode": "premium",
+            "insure": "20年期",
+            "insure_code": "term_20",
+            "insure_mode": "term",
+            "insure_mode_code": 0,
+            "insure_period": 20,
+            "insure_value": 20,
+            "name": "横琴优品添利年金保险",
+            "pay": "3年期",
+            "pay_code": "term_3",
+            "pay_freq": "年交",
+            "pay_freq_code": "year",
+            "pay_freq_value": 1,
+            "pay_mode": "term",
+            "pay_mode_code": 0,
+            "pay_period": 3,
+            "pay_value": 3,
+            "premium": "100000.00",
+            "productId": "HQL00104",
+            "productType": "life",
+            "quantity": 1,
+            "type": 1,
+            "vendor": "hengqin"
+          },
+          {
+            "abbrName": "尊享人生",
+            "age": 25,
+            "amount": "3000000元",
+            "amount_value": "3000000",
+            "autoAdd": false,
+            "clausePath": "/product/HQL00102/HQL00102.pdf",
+            "code": "17040",
+            "coverPath": "/product/commonProduct/PREcommonProduct.png",
+            "hasCv": "false",
+            "inputMode": "none",
+            "insure": "1年期",
+            "insure_code": "term_1",
+            "insure_mode": "term",
+            "insure_mode_code": 0,
+            "insure_period": 1,
+            "insure_value": 1,
+            "medicare": "有",
+            "medicare_code": "yes",
+            "name": "横琴尊享人生医疗保险",
+            "pay": "一次交清",
+            "pay_code": "single",
+            "pay_freq": "一次交清",
+            "pay_freq_code": "single",
+            "pay_freq_value": 0,
+            "pay_mode": "term",
+            "pay_mode_code": 0,
+            "pay_period": 1000,
+            "pay_value": 1000,
+            "premium": "276.00",
+            "productId": "HQL00102",
+            "productType": "medical",
+            "quantity": 1,
+            "renewal": "是",
+            "renewal_code": "yes",
+            "type": 1,
+            "vendor": "hengqin"
+          }
+        ]
+      },
+      {
+        "insured": [
+          {
+            "name": "姓名",
+            "value": "阿三"
+          },
+          {
+            "name": "性别",
+            "value": "男"
+          },
+          {
+            "name": "年龄",
+            "value": "26"
+          },
+          {
+            "name": "婚姻状况"
+          },
+          {
+            "name": "国籍",
+            "value": "中国"
+          },
+          {
+            "name": "证件类型",
+            "value": "身份证"
+          },
+          {
+            "name": "证件号码",
+            "value": "430101199203010050"
+          },
+          {
+            "name": "出生日期",
+            "value": "1992-03-01"
+          },
+          {
+            "name": "工作单位",
+            "value": "工作单位"
+          },
+          {
+            "name": "年收入",
+            "value": "100万元"
+          },
+          {
+            "name": "职业",
+            "value": "营业员"
+          },
+          {
+            "name": "职业代码",
+            "value": "4010101"
+          },
+          {
+            "name": "手机",
+            "value": "18324549799"
+          },
+          {
+            "name": "固定电话",
+            "value": ""
+          },
+          {
+            "name": "联系地址",
+            "value": "河南省郑州市中原区详细地址"
+          },
+          {
+            "name": "联系邮编",
+            "value": "084546"
+          }
+        ],
+        "payInfo": [
+          {
+            "name": "期交保费合计",
+            "value": "null元"
+          },
+          {
+            "name": "交费频次",
+            "value": "年交"
+          },
+          {
+            "name": "选择电子函件",
+            "value": "否"
+          }
+        ],
+        "productList": [
+          {
+            "abbrName": "优品添利",
+            "age": 25,
+            "amount": "52700元",
+            "amount_value": "52700",
+            "autoAdd": false,
+            "clausePath": "/product/HQL00104/HQL00104.pdf",
+            "code": "14030",
+            "coverPath": "/product/commonProduct/PREcommonProduct.png",
+            "hasCv": "false",
+            "inputMode": "premium",
+            "insure": "20年期",
+            "insure_code": "term_20",
+            "insure_mode": "term",
+            "insure_mode_code": 0,
+            "insure_period": 20,
+            "insure_value": 20,
+            "name": "横琴优品添利年金保险",
+            "pay": "3年期",
+            "pay_code": "term_3",
+            "pay_freq": "年交",
+            "pay_freq_code": "year",
+            "pay_freq_value": 1,
+            "pay_mode": "term",
+            "pay_mode_code": 0,
+            "pay_period": 3,
+            "pay_value": 3,
+            "premium": "100000.00",
+            "productId": "HQL00104",
+            "productType": "life",
+            "quantity": 1,
+            "type": 1,
+            "vendor": "hengqin"
+          },
+          {
+            "abbrName": "尊享人生",
+            "age": 25,
+            "amount": "3000000元",
+            "amount_value": "3000000",
+            "autoAdd": false,
+            "clausePath": "/product/HQL00102/HQL00102.pdf",
+            "code": "17040",
+            "coverPath": "/product/commonProduct/PREcommonProduct.png",
+            "hasCv": "false",
+            "inputMode": "none",
+            "insure": "1年期",
+            "insure_code": "term_1",
+            "insure_mode": "term",
+            "insure_mode_code": 0,
+            "insure_period": 1,
+            "insure_value": 1,
+            "medicare": "有",
+            "medicare_code": "yes",
+            "name": "横琴尊享人生医疗保险",
+            "pay": "一次交清",
+            "pay_code": "single",
+            "pay_freq": "一次交清",
+            "pay_freq_code": "single",
+            "pay_freq_value": 0,
+            "pay_mode": "term",
+            "pay_mode_code": 0,
+            "pay_period": 1000,
+            "pay_value": 1000,
+            "premium": "276.00",
+            "productId": "HQL00102",
+            "productType": "medical",
+            "quantity": 1,
+            "renewal": "是",
+            "renewal_code": "yes",
+            "type": 1,
+            "vendor": "hengqin"
+          }
+        ]
+      }
+    ],
+    "isAirSignSuccess": false,
+    "isInAir": false
+  }
+}

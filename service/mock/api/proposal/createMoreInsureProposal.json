@@ -1,0 +1,49 @@
+{
+    "errorMsg": "",
+    "errorCode": "",
+    "pageNum": null,
+    "pageSize": null,
+    "totalNum": null,
+    "totalPage": null,
+    "value": {
+        "content": {
+            "planList": [
+                {
+                    "insurant": {
+                        "birthday": "1991-01-18",
+                        "genderCode": "F",
+                        "occupation": "10201",
+                        "name": "第一被保人",
+                        "relation": "01"
+                    },
+                    "planId": "1052011363018072",
+                    "insurants": [
+                        {
+                            "birthday": "1991-01-18",
+                            "genderCode": "F",
+                            "occupation": "10201",
+                            "name": "第一被保人",
+                            "relation": "01"
+                        },
+                        {
+                            "birthday": "1991-02-12",
+                            "genderCode": "F",
+                            "occupation": "10203",
+                            "name": "第二被保人",
+                            "relation": "02"
+                        }
+                    ]
+                }
+            ],
+            "proposalId": 52011363013642,
+            "applicant": {
+                "birthday": "1980-03-09",
+                "genderCode": "M",
+                "occupation": "10201",
+                "name": "投保人",
+                "relation": "01"
+            }
+        }	
+    },
+    "success": true
+}
