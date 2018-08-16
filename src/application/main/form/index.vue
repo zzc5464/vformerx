@@ -10,12 +10,14 @@
     @formChange="formDataChange" 
     @formEvent='formEvent' ></form-unit>
     <form-unit v-show='tabIndex == 1' 
+    name='page1.f2'
     :formModels='formModels.f2' 
+    @formChange="formDataChange"
      ></form-unit>
     <form-unit v-show='tabIndex == 2' 
     :formModels='formModels.f3' 
      ></form-unit>
-    <p>info: {{$store.state.formModel.config.page1.f1}}</p>
+    <p>info: {{$store.state.formModel.config.page1.f2}}</p>
   </div>
 </template>
 <script>
@@ -31,7 +33,6 @@ export default {
   methods: {
     formEvent (t, e) {},
     formDataChange (v) {
-      // console.log(this.$store.state.formModel.config.page1, v)
       this.$store.dispatch('setConfig', v)
     },
     getConfig () {

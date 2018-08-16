@@ -9,22 +9,6 @@ const wrapper = function (value) {
 const relationTypes = [
   {name: '本人', value: '00'},
   {name: '配偶', value: '01'},
-  {name: '子女', value: '02'},
-  {name: '父母', value: '03'},
-  {name: '亲属', value: '04'},
-  {name: '无关或不确定', value: '05'},
-  {name: '其他', value: '06'},
-  {name: '雇佣关系', value: '07'},
-  {name: '兄弟', value: '08'},
-  {name: '兄妹', value: '09'},
-  {name: '姐弟', value: '10'},
-  {name: '姐妹', value: '11'},
-  {name: '祖父母', value: '12'},
-  {name: '孙子女', value: '13'},
-  {name: '法人', value: '14'},
-  {name: '协会', value: '15'},
-  {name: '会员', value: '16'},
-  {name: '贷款机构', value: '17'}
 ]
 const defaultOccupation = {
   value: '010103',

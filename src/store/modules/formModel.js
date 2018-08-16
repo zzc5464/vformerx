@@ -7,6 +7,7 @@ const mutations = {
     state.config = config
   },
   setConfig: (state, val) => {
+    console.log('val', val)
     let page = val.name.split('.')[0]
     let f = val.name.split('.')[1]
     Object.keys(val.value).forEach(v => {
