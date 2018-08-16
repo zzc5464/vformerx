@@ -12,7 +12,20 @@ export const formModels = {
                     extra: {
                         text: '万元'
                     }
-                }
+                },
+                validators: [
+                    {
+                        name: '验证父母年龄',
+                        fields: ['p2-form1-tax'],
+                        codes: `
+                          if ($$.number(0) > $$.number(1)) {
+                              return $$.pass()
+                          } else {
+                              return $$.fail(0, '父母的年龄小于子女的年龄') 
+                          }`
+                    }
+                ],
+                fillers: []
             },
             income2: {
                 value: '',
