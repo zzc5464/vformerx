@@ -21,7 +21,13 @@ function getData () {
   })
 }
 
-
+/**
+ * 校验函数
+ * @param {callback} callback 执行配置中的校验代码
+ * @param {String|Number|Object} formValues 被校验值
+ * @param {String|Number|Object} fieldValue 校验对比值
+ * @param {String} field 校验对象地址 tips: p2-form1-tax
+ */
 function validate (callback, formValues, fieldValue, ...field) {
   function $$ (col) {
     function getFieldValue (col) {
@@ -31,10 +37,9 @@ function validate (callback, formValues, fieldValue, ...field) {
         return undefined
       }
     }
-
     return col === 0 ? fieldValue : getFieldValue(col - 1);
   }
-
+  
   for (let i = 0; i <= field.length; i++) {
     if (typeof $$(i) === 'undefined') {
       return {
@@ -64,7 +69,13 @@ function validate (callback, formValues, fieldValue, ...field) {
 
   return callback($$);
 }
-
+/**
+ * 获取表格的field 对象
+ * @param {Object} state 
+ * vuex数据
+ * @param {callback} callback 
+ * 返回field的值
+ */
 function mapFields (state, callback) {
   let models = state.formModels;
   for (let mKey in models) {
@@ -84,7 +95,6 @@ const store = new Vuex.Store({
 
   mutations: {
     dataUpdated (state, v) {
-      console.log(v);
       for (let key in v.value) {
         state.formValues[`${v.name}-${key}`] = v.value[key];
 
@@ -92,17 +102,16 @@ const store = new Vuex.Store({
         let field = state.formModels[sections[0]][sections[1]][key];
         field.value = v.value[key];
       }
-
       mapFields(state, field => {
         let validators = field.validators;
         validators && validators.forEach((item) => {
           let callback = eval(`$$ => {${item.codes}}`);
           let ret = validate(callback, state.formValues, field.value, ...item.fields);
-          console.log(ret);
+          console.log('ret ===> ', ret);
         })
       })
 
-      console.log(state.formValues);
+      // console.log(state.formValues);
     },
     insert (state) {
       console.log('insert');
