@@ -1,118 +1,287 @@
+/**
+ * Equals{
+   @Override
+   public String toString() {
+      return "等于";
+   }
+},EqualsIgnoreCase{
+   @Override
+   public String toString() {
+      return "等于(不分大小写)";
+   }
+}, NotEquals{
+   @Override
+   public String toString() {
+      return "不等于";
+   }
+}, NotEqualsIgnoreCase{
+   @Override
+   public String toString() {
+      return "不等于(不分大小写)";
+   }
+}, LessThen{
+   @Override
+   public String toString() {
+      return "小于";
+   }
+}, LessThenEquals{
+   @Override
+   public String toString() {
+      return "小于等于";
+   }
+}, GreaterThen{
+   @Override
+   public String toString() {
+      return "大于";
+   }
+}, GreaterThenEquals{
+   @Override
+   public String toString() {
+      return "大于等于";
+   }
+}, In{
+   @Override
+   public String toString() {
+      return "在集合中";
+   }
+}, NotIn{
+   @Override
+   public String toString() {
+      return "不在集合中";
+   }
+}, StartWith{
+   @Override
+   public String toString() {
+      return "开始于";
+   }
+}, NotStartWith{
+   @Override
+   public String toString() {
+      return "不开始于";
+   }
+}, EndWith{
+   @Override
+   public String toString() {
+      return "结束于";
+   }
+}, NotEndWith{
+   @Override
+   public String toString() {
+      return "不结束于";
+   }
+}, Null{
+   @Override
+   public String toString() {
+      return "为空";
+   }
+}, NotNull{
+   @Override
+   public String toString() {
+      return "不为空";
+   }
+}, Match{
+   @Override
+   public String toString() {
+      return "匹配";
+   }
+}, NotMatch{
+   @Override
+   public String toString() {
+      return "不匹配";
+   }
+}, Contain{
+   @Override
+   public String toString() {
+      return "包含";
+   }
+}, NotContain{
+   @Override
+   public String toString() {
+      return "不包含";
+   }
+};
+ */
+export const baseChecks = {
+    // 相等
+    quals: `
+        if ($$.number(0) == $$.number(1)) {
+            return $$.pass()
+        } 
+        return $$.fail(0, '数据不相等') 
+    `,
+    // 不相等
+    notEquals: `
+        if ($$.number(0) != $$.number(1)) {
+            return $$.pass()
+        } 
+        return $$.fail(0, '数据相等') 
+    `,
+    // 大于
+    greaterThen: `
+        if ($$.number(0) > $$.number(1)) {
+            return $$.pass()
+        } 
+        return $$.fail(0, '必须大于') 
+    `,
+    // 小于
+    LessThen: `
+        if ($$.number(0) < $$.number(1)) {
+            return $$.pass()
+        } 
+        return $$.fail(0, '必须小于') 
+    `,
+    // // 等于(不分大小写)
+    // equalsIgnoreCase: `
+        
+    // `
+}
 export const formModels = {
     p1: {
         'form1': {
             income: {
                 value: '',
                 rules: {
-                    label: 'Income',
+                    label: '父母',
                     type: 'za-input',
                     vRules: 'required|min:1|max:8',
                     placeholder: '请输入',
                     errorMsg: '请输入如何看待寿险营销',
-                    extra: {
-                        text: '万元'
-                    }
                 },
                 validators: [
                     {
                         name: '验证父母年龄',
-                        fields: ['p2-form1-tax'],
+                        fields: ['p1-form1-text'],
                         codes: `
                           if ($$.number(0) > $$.number(1)) {
                               return $$.pass()
                           } else {
                               return $$.fail(0, '父母的年龄小于子女的年龄') 
-                          }`
+                          }`,
+                        baseChecks:['greaterThen']
                     }
                 ],
             },
-            relation: {
+            text: {
                 value: '',
                 rules: {
-                  label: 'certType',
-                  type: 'za-select',
-                  vRules: 'required',
-                  placeholder: '请选择',
-                  showName: true,
-                  errorMsg: '请选择',
-                  options: [
-                    [
-                        {value: 'self',name: '本人'},
-                        {value: 'sexPartner', name: '情侣'},
-                        {value: 'else', name: '其他'}
-                    ]
-                    ]
-                }
+                    label: '本人',
+                    type: 'za-input',
+                    vRules: 'required|min:1|max:8',
+                    placeholder: '请输入',
+                    errorMsg: '请输入',
+                },
             },
-            sex1: {
+            childen: {
                 value: '',
                 rules: {
-                    label: 'sex1',
-                    type: 'za-sex',
-                    vRules: 'required',
-                    placeholder: '请选择',
-                    errorMsg: '请选择性别',
+                    label: '子女',
+                    type: 'za-input',
+                    vRules: 'required|min:1|max:3',
+                    placeholder: '请输入',
+                    errorMsg: '请输入',
                 },
                 validators: [
                     {
-                        fields: ['p1-form1-relation','p1-form1-sex2'],
-                        codes: `
-                        if (!$$(1)) {
-                        return $$.fail(0, '请选择关系') 
-                        }
-                        if($$(1) == 'sexPartner' && $$(0) == $$(2)) {
-                        return $$.fail(0, '性别相同，如何恋爱') 
-                        }
-                        if($$(1) == 'self' && $$(0) != $$(2)) {
-                        return $$.fail(0, '性别必须相同') 
-                        }
-                        return $$.pass()
-                        `
+                        name: '验证子女年龄',
+                        fields: ['p1-form1-text'],
+                        baseChecks:['LessThen']
                     }
                 ],
             },
-            sex2: {
-                value: '',
-                rules: {
-                    label: 'sex2',
-                    type: 'za-sex',
-                    vRules: 'required',
-                    placeholder: '请选择',
-                    errorMsg: '请选择性别',
-                }
-            },
+            // relation: {
+            //     value: '',
+            //     rules: {
+            //       label: '关系',
+            //       type: 'za-select',
+            //       vRules: 'required',
+            //       placeholder: '请选择',
+            //       showName: true,
+            //       errorMsg: '请选择',
+            //       options: [
+            //         [
+            //             {value: 'self',name: '本人'},
+            //             {value: 'sexPartner', name: '情侣'},
+            //             {value: 'else', name: '其他'}
+            //         ]
+            //         ]
+            //     }
+            // },
+            // sex1: {
+            //     value: '',
+            //     rules: {
+            //         label: 'sex1',
+            //         type: 'za-sex',
+            //         vRules: 'required',
+            //         placeholder: '请选择',
+            //         errorMsg: '请选择性别',
+            //     },
+            //     validators: [
+            //         {
+            //             fields: ['p1-form1-relation','p1-form1-sex2'],
+            //             codes: `
+            //             if (!$$(1)) {
+            //             return $$.fail(0, '请选择关系') 
+            //             }
+            //             if($$(1) == 'sexPartner' && $$(0) == $$(2)) {
+            //             return $$.fail(0, '性别相同，如何恋爱') 
+            //             }
+            //             if($$(1) == 'self' && $$(0) != $$(2)) {
+            //             return $$.fail(0, '性别必须相同') 
+            //             }
+            //             return $$.pass()
+            //             `,
+            //             // baseChecks:['quals','equalsIgnoreCase']
+            //         }
+
+            //     ],
+            // },
+            // sex2: {
+            //     value: '',
+            //     rules: {
+            //         label: 'sex2',
+            //         type: 'za-sex',
+            //         vRules: 'required',
+            //         placeholder: '请选择',
+            //         errorMsg: '请选择性别',
+            //     }
+            // },
             
         },
-        // 'form2': {
-        //     income: {
-        //         value: '',
-        //         rules: {
-        //             label: 'Income',
-        //             type: 'za-input',
-        //             vRules: 'required|min:1|max:8',
-        //             placeholder: '请输入',
-        //             errorMsg: '请输入如何看待寿险营销',
-        //             extra: {
-        //                 text: '万元'
-        //             }
-        //         }
-        //     }
-        // }
+        'form2': {
+            
+        }
     },
     p2: {
         'form1': {
-            tax: {
+            D: {
                 value: '',
                 rules: {
-                    label: 'Tax',
+                    label: '美元',
                     type: 'za-input',
                     vRules: 'required|min:1|max:8',
                     placeholder: '请输入',
                     errorMsg: '请输入如何看待寿险营销',
-                    extra: {
-                        text: '万元'
+                },
+                fillers: [
+                    {
+                        name: '换算成人民币',
+                        fillers: ['p2-form1-RMB'],
+                        codes: `
+                           
+                        `   
+                        // $$(1) = $$(0) * 6  console.log('eval=>', $$(0), $$(1))
                     }
-                }
+                ]
+            },
+            RMB: {
+                value: '',
+                rules: {
+                    label: '人民币',
+                    type: 'za-input',
+                    vRules: 'required|min:1|max:8',
+                    placeholder: '请输入',
+                    errorMsg: '请输入',
+                },
             }
         }
     },
@@ -132,5 +301,127 @@ export const formModels = {
                 }
             }
         }
+    },
+    p4: {
+        form1: {
+            name: {
+                value: '',
+                rules: {
+                    label: '姓名',
+                    type: 'za-input',
+                    vRules: 'required',
+                    placeholder: '请输入',
+                    errorMsg: '请输入姓名',
+                },
+                // validators: [
+                //     {
+                //         name: '验证父母年龄',
+                //         fields: ['p1-form1-text'],
+                //         codes: `
+                //           if ($$.number(0) > $$.number(1)) {
+                //               return $$.pass()
+                //           } else {
+                //               return $$.fail(0, '父母的年龄小于子女的年龄') 
+                //           }`,
+                //         baseChecks:['greaterThen']
+                //     }
+                // ],
+            },
+            sex: {
+                value: '',
+                rules: {
+                    label: '性别',
+                    type: 'za-sex',
+                    vRules: 'required',
+                    errorMsg: '请选择',
+                },
+            },
+            date: {
+                value: '',
+                rules: {
+                    label: '出生日期',
+                    type: 'za-date',
+                    vRules: 'required',
+                    placeholder: '请输入',
+                    errorMsg: '请输入',
+                },
+                // validators: [
+                //     {
+                //         name: '验证子女年龄',
+                //         fields: ['p1-form1-text'],
+                //         baseChecks:['LessThen']
+                //     }
+                // ],
+            },
+        },
+        form2: {
+            relation: {
+                value: '',
+                rules: {
+                  label: '是被保人',
+                  type: 'za-select',
+                  vRules: 'required',
+                  placeholder: '请选择',
+                  showName: true,
+                  errorMsg: '请选择',
+                  options: [
+                    [
+                        {value: 'self',name: '本人'},
+                        {value: 'sexPartner', name: '情侣'},
+                        {value: 'else', name: '其他'}
+                    ]
+                    ]
+                }
+            },
+            name: {
+                value: '',
+                rules: {
+                    label: '姓名',
+                    type: 'za-input',
+                    vRules: 'required',
+                    placeholder: '请输入',
+                    errorMsg: '请输入姓名',
+                },
+                // validators: [
+                //     {
+                //         name: '验证父母年龄',
+                //         fields: ['p1-form1-text'],
+                //         codes: `
+                //           if ($$.number(0) > $$.number(1)) {
+                //               return $$.pass()
+                //           } else {
+                //               return $$.fail(0, '父母的年龄小于子女的年龄') 
+                //           }`,
+                //         baseChecks:['greaterThen']
+                //     }
+                // ],
+            },
+            sex: {
+                value: '',
+                rules: {
+                    label: '性别',
+                    type: 'za-sex',
+                    vRules: 'required',
+                    errorMsg: '请选择',
+                },
+            },
+            date: {
+                value: '',
+                rules: {
+                    label: '出生日期',
+                    type: 'za-date',
+                    vRules: 'required',
+                    placeholder: '请输入',
+                    errorMsg: '请输入',
+                },
+                // validators: [
+                //     {
+                //         name: '验证子女年龄',
+                //         fields: ['p1-form1-text'],
+                //         baseChecks:['LessThen']
+                //     }
+                // ],
+            },
+        },
     }
 }

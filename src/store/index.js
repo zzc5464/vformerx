@@ -5,7 +5,7 @@ import axios from 'axios'
 import moduleA from './modules/moduleA'
 import moduleB from './modules/moduleB'
 import formModel from './modules/formModel'
-import { formModels } from './formModels'
+import { formModels, baseChecks } from './formModels'
 import { Func1 } from './validators'
 
 // import ui from './modules/ui'
@@ -24,7 +24,7 @@ function getData () {
 /**
  * 校验函数
  * @param {callback} callback 执行配置中的校验代码
- * @param {String|Number|Object} formValues 被校验值
+ * @param {Object} formValues 被校验值
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
@@ -70,6 +70,16 @@ function validate (callback, formValues, fieldValue, ...field) {
   return callback($$);
 }
 /**
+ * 赋值函数
+ * @param {callback} callback 执行配置中的赋值代码
+ * @param {Object} formValues 基准值
+ * @param {String|Number|Object} fieldValue 修改值
+ * @param {String} field 赋值对象地址 tips: p2-form1-tax
+ */
+function filler (callback, formValues, fieldValue, ...field) {
+  console.log(callback, formValues, fieldValue, ...field);
+}
+/**
  * 获取表格的field 对象
  * @param {Object} state 
  * vuex数据
@@ -107,11 +117,19 @@ const store = new Vuex.Store({
         validators && validators.forEach((item) => {
           let callback = eval(`$$ => {${item.codes}}`);
           let ret = validate(callback, state.formValues, field.value, ...item.fields);
-          console.log('ret ===> ', ret);
+          item.baseChecks && item.baseChecks.forEach( (v,i) => {
+            let callbackBaseChecks = eval(`$$ => {${baseChecks[v]}}`)
+            let r = validate(callbackBaseChecks , state.formValues, field.value, ...item.fields)
+            console.log(r);
+          })
         })
+        // // fillers
+        // let fillers = field.fillers
+        // fillers && fillers.forEach( v => {
+        //   let callback = eval(`$$ => {${v.codes}}`)
+        //   console.log(filler(callback,state.formValues, field.value, ...v.fillers))
+        // })
       })
-
-      // console.log(state.formValues);
     },
     insert (state) {
       console.log('insert');
