@@ -180,37 +180,37 @@ const dev = {
 export const formModels = {
     p1: {
         'form1': {
-            income: {
+            parent: {
                 value: '',
                 rules: {
                     label: '父母',
                     type: 'za-input',
-                    vRules: 'required|min:1|max:8',
+                    vRules: 'required',
                     placeholder: '请输入',
-                    errorMsg: '请输入如何看待寿险营销',
+                    errorMsg: '父母年龄',
                 },
                 validators: [
                     {
                         name: '验证父母年龄',
-                        fields: ['p1-form1-text'],
+                        fields: ['p1-form1-self'],
                         codes: `
                           if ($$.number(0) > $$.number(1)) {
                               return $$.pass()
                           } else {
-                              return $$.fail(0, '父母的年龄小于子女的年龄') 
+                              return $$.fail(0, '小于子女的年龄') 
                           }`,
                         baseChecks:['greaterThen']
                     }
                 ],
             },
-            text: {
+            self: {
                 value: '',
                 rules: {
                     label: '本人',
                     type: 'za-input',
                     vRules: 'required|min:1|max:8',
                     placeholder: '请输入',
-                    errorMsg: '请输入',
+                    errorMsg: '本人年龄',
                 },
             },
             childen: {
@@ -220,12 +220,15 @@ export const formModels = {
                     type: 'za-input',
                     vRules: 'required|min:1|max:3',
                     placeholder: '请输入',
-                    errorMsg: '请输入',
+                    errorMsg: '子女年龄',
                 },
                 validators: [
                     {
                         name: '验证子女年龄',
-                        fields: ['p1-form1-text'],
+                        fields: ['p1-form1-self'],
+                        codes: `
+                            return $$.pass()
+                         `,
                         baseChecks:['LessThen']
                     }
                 ],

@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     onChange (v) {
-      // console.log('每次修改的数据', v)
+      // console.log('数据', v.msg)
       
       this.$store.dispatch('dataUpdated', v);
     },

@@ -28,16 +28,17 @@ function getData () {
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
-function validate (callback, formValues, fieldValue, ...field) {
+function validate (callback, formValues, fields, ...field) {
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
         return formValues[field[col]]
       } else {
+        
         return undefined
       }
     }
-    return col === 0 ? fieldValue : getFieldValue(col - 1);
+    return col === 0 ? fields.value : getFieldValue(col - 1);
   }
   
   for (let i = 0; i <= field.length; i++) {
@@ -52,12 +53,15 @@ function validate (callback, formValues, fieldValue, ...field) {
   $$.number = function (col) {
     return parseInt($$(col))
   }
-
+  
   $$.fail = function (col, reason) {
+  console.log(fields, field[col])
+
     return {
       pass: false,
       field: field[col],
-      reason: reason
+      errBag: fields.rules.errorMsg,
+      reason:  reason
     }
   }
 
@@ -113,13 +117,19 @@ const store = new Vuex.Store({
         field.value = v.value[key];
       }
       mapFields(state, field => {
+        // console.log('field ==>', field.rules.errorMsg)
+        
         let validators = field.validators;
         validators && validators.forEach((item) => {
           let callback = eval(`$$ => {${item.codes}}`);
-          let ret = validate(callback, state.formValues, field.value, ...item.fields);
+          let ret = validate(callback, state.formValues, field, ...item.fields);
+
+          // console.log('ret', ret )
+          
           item.baseChecks && item.baseChecks.forEach( (v,i) => {
             let callbackBaseChecks = eval(`$$ => {${baseChecks[v]}}`)
-            let r = validate(callbackBaseChecks , state.formValues, field.value, ...item.fields)
+            let r = validate(callbackBaseChecks , state.formValues, field, ...item.fields)
+            // console.log(r.errBag + r.reason);
           })
         })
         // // fillers
