@@ -35,6 +35,7 @@ function validate (callback, formValues, thisField, ...field) {
       if (field.length > col) {
         return formValues[field[col]]
       } else {
+        
         return undefined
       }
     }
@@ -58,12 +59,13 @@ function validate (callback, formValues, thisField, ...field) {
   $$.number = function (col) {
     return parseInt($$(col))
   }
-
+  
   $$.fail = function (col, reason) {
     return {
       pass: false,
       field: field[col],
-      reason: reason
+      reason,
+      thisField
     }
   }
 
@@ -130,7 +132,7 @@ function findDependencies (formModels) {
     }
   }
 
-  console.log(dependencies);
+  console.log('反映射表', dependencies);
 
   formModels.dependencies = dependencies;
   return formModels;
@@ -159,9 +161,9 @@ const store = new Vuex.Store({
         let field = state.formModels[sections[0]][sections[1]][key];
         field.value = v.value[key];
       }
-
       if (t) {
         let fieldName = `${v.name}-${t}`;
+
         let templates = state.formModels.templates;
 
         console.log(`field: ${fieldName}`);
@@ -186,7 +188,7 @@ const store = new Vuex.Store({
           let dependencies = state.formModels.dependencies[fieldName] || [];
           dependencies.forEach(dep => {
             findField(state, dep.name, field => {
-              console.log(field)
+              // console.log(field)
               let validators = field.validators || [];
               validators.forEach(validator => {
                 if (validator.name === dep.validator) {
@@ -199,7 +201,8 @@ const store = new Vuex.Store({
                   }
       
                   let ret = validate(callback, state.formValues, field, ...validator.fields);
-                  console.log(ret);
+                  
+                  console.log('ret', ret);
                 }
               })
             })
@@ -207,11 +210,11 @@ const store = new Vuex.Store({
         })
       }
 
-      console.log(state.formValues);
+      // console.log(state.formValues);
     },
 
     eventUpdated (state, obj) {
-      console.log(obj);
+      // console.log(obj);
       state.fieldName = obj.v.name;
     },
 
