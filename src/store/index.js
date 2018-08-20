@@ -141,11 +141,17 @@ function findDependencies (formModels) {
 const store = new Vuex.Store({
   state: {
     formModels: findDependencies(formModels),
+    // formModels: {},
     formValues: {},
     fieldName: ''
   },
 
   mutations: {
+    getFormModelConfig: (state, config) => {
+      
+      state.formModels = config
+      console.log('获取配置', state.formModels);
+    },
     dataUpdated (state, obj) {
       let v = obj.v;
       let t = obj.t;
@@ -158,7 +164,9 @@ const store = new Vuex.Store({
         state.formValues[`${v.name}-${key}`] = v.value[key];
 
         let sections = v.name.split('-');
+        
         let field = state.formModels[sections[0]][sections[1]][key];
+        console.log(field);
         field.value = v.value[key];
       }
       if (t) {
@@ -184,8 +192,10 @@ const store = new Vuex.Store({
             let ret = validate(callback, state.formValues, field, ...item.fields);
             console.log(ret);
           })
-
-          let dependencies = state.formModels.dependencies[fieldName] || [];
+          console.log(state.formModels.dependencies);
+          
+          let dependencies =  [];
+          // let dependencies = state.formModels.dependencies[fieldName] || [];
           dependencies.forEach(dep => {
             findField(state, dep.name, field => {
               // console.log(field)
