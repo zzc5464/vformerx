@@ -5,7 +5,7 @@ import axios from 'axios'
 import moduleA from './modules/moduleA'
 import moduleB from './modules/moduleB'
 import formModel from './modules/formModel'
-import { formModels } from './formModels'
+import { formModels, baseChecks } from './formModels'
 import { Func1 } from './validators'
 
 // import ui from './modules/ui'
@@ -21,10 +21,11 @@ function getData () {
   })
 }
 
+
 /**
  * 校验函数
  * @param {callback} callback 执行配置中的校验代码
- * @param {String|Number|Object} formValues 被校验值
+ * @param {Object} formValues 被校验值
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
@@ -37,7 +38,12 @@ function validate (callback, formValues, fieldValue, ...field) {
         return undefined
       }
     }
-    return col === 0 ? fieldValue : getFieldValue(col - 1);
+
+    return col === 0 ? thisField.value : getFieldValue(col - 1);
+  }
+
+  $$.type = function () {
+    return thisField.type;
   }
   
   for (let i = 0; i <= field.length; i++) {
@@ -70,6 +76,16 @@ function validate (callback, formValues, fieldValue, ...field) {
   return callback($$);
 }
 /**
+ * 赋值函数
+ * @param {callback} callback 执行配置中的赋值代码
+ * @param {Object} formValues 基准值
+ * @param {String|Number|Object} fieldValue 修改值
+ * @param {String} field 赋值对象地址 tips: p2-form1-tax
+ */
+function filler (callback, formValues, fieldValue, ...field) {
+  console.log(callback, formValues, fieldValue, ...field);
+}
+/**
  * 获取表格的field 对象
  * @param {Object} state 
  * vuex数据
@@ -87,10 +103,44 @@ function mapFields (state, callback) {
   }
 }
 
+function findField(state, fieldName, callback) {
+  let parts = fieldName.split('-');
+  callback(state.formModels[parts[0]][parts[1]][parts[2]])
+}
+
+function findDependencies (formModels) {
+  let dependencies = {}
+
+  for (let mKey in formModels) {
+    for (let pKey in formModels[mKey]) {
+      for (let fKey in formModels[mKey][pKey]) {
+        let field = formModels[mKey][pKey][fKey]
+        let validators = field.validators || [];
+        validators.forEach(validator => {
+          let targetFields = validator.fields || []
+          targetFields.forEach(target => {
+            dependencies[target] = dependencies[target] || []
+            dependencies[target].push({
+              name: `${mKey}-${pKey}-${fKey}`,
+              validator: validator.name     
+            })
+          })
+        })
+      }
+    }
+  }
+
+  console.log(dependencies);
+
+  formModels.dependencies = dependencies;
+  return formModels;
+}
+
 const store = new Vuex.Store({
   state: {
-    formModels: formModels,
-    formValues: {}
+    formModels: findDependencies(formModels),
+    formValues: {},
+    fieldName: ''
   },
 
   mutations: {
@@ -102,17 +152,67 @@ const store = new Vuex.Store({
         let field = state.formModels[sections[0]][sections[1]][key];
         field.value = v.value[key];
       }
-      mapFields(state, field => {
-        let validators = field.validators;
-        validators && validators.forEach((item) => {
-          let callback = eval(`$$ => {${item.codes}}`);
-          let ret = validate(callback, state.formValues, field.value, ...item.fields);
-          console.log('ret ===> ', ret);
-        })
-      })
 
-      // console.log(state.formValues);
+      if (state.fieldName) {
+        let fieldName = `${v.name}-${state.fieldName}`;
+        let templates = state.formModels.templates;
+
+        console.log(`field: ${fieldName}`);
+
+        findField(state, fieldName, field => {
+  
+          let validators = field.validators || [];
+          validators && validators.forEach((item) => {
+
+            let callback;
+
+            if (item.template) {
+              callback = eval(`$$ => {${templates[item.template]}}`)
+            } else {
+              callback = eval(`$$ => {${item.codes}}`)
+            }
+
+            let ret = validate(callback, state.formValues, field, ...item.fields);
+            console.log(ret);
+          })
+
+          let dependencies = state.formModels.dependencies[fieldName] || [];
+          dependencies.forEach(dep => {
+            findField(state, dep.name, field => {
+              console.log(field)
+              let validators = field.validators || [];
+              validators.forEach(validator => {
+                if (validator.name === dep.validator) {
+                  let callback;
+
+                  if (validator.template) {
+                    callback = eval(`$$ => {${templates[validator.template]}}`)
+                  } else {
+                    callback = eval(`$$ => {${validator.codes}}`)
+                  }
+      
+                  let ret = validate(callback, state.formValues, field, ...validator.fields);
+                  console.log(ret);
+                }
+              })
+            })
+          })
+        })
+      }
+
+      console.log(state.formValues);
     },
+
+    eventUpdated (state, obj) {
+      console.log(obj);
+      state.fieldName = obj.v.name;
+    },
+
+    resetEventUpdated (state) {
+      console.log('clear cached fieldName');
+      state.fieldName = '';
+    },
+
     insert (state) {
       console.log('insert');
       let j = JSON.stringify(state.formModels['p1']['form1']);
@@ -125,6 +225,12 @@ const store = new Vuex.Store({
     },
     dataUpdated ({commit}, v) {
       commit('dataUpdated', v);
+    },
+    eventUpdated ({commit}, v) {
+      commit('eventUpdated', v);
+    },
+    resetEventUpdated ({commit}) {
+      commit('resetEventUpdated');
     }
   },
   modules: {

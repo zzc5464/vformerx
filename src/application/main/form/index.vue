@@ -32,7 +32,10 @@ export default {
     onItemClick () {
 
     },
-    onEvent () {},
+    onEvent (t, v) {
+      // console.log('事件', t, v);
+      
+    },
     render () {},
     onAddBtnClicked () {
       this.$store.dispatch('insert');
