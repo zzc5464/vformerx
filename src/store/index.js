@@ -30,6 +30,7 @@ function getData () {
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
 function validate (callback, formValues, fieldValue, ...field) {
+  
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
@@ -63,7 +64,8 @@ function validate (callback, formValues, fieldValue, ...field) {
     return {
       pass: false,
       field: field[col],
-      reason: reason
+      reason,
+      thisField
     }
   }
 
@@ -130,7 +132,7 @@ function findDependencies (formModels) {
     }
   }
 
-  console.log(dependencies);
+  console.log('反映射表', dependencies);
 
   formModels.dependencies = dependencies;
   return formModels;
@@ -152,7 +154,6 @@ const store = new Vuex.Store({
         let field = state.formModels[sections[0]][sections[1]][key];
         field.value = v.value[key];
       }
-
       if (state.fieldName) {
         let fieldName = `${v.name}-${state.fieldName}`;
         let templates = state.formModels.templates;
@@ -192,7 +193,8 @@ const store = new Vuex.Store({
                   }
       
                   let ret = validate(callback, state.formValues, field, ...validator.fields);
-                  console.log(ret);
+                  
+                  console.log('ret', ret);
                 }
               })
             })
@@ -200,7 +202,7 @@ const store = new Vuex.Store({
         })
       }
 
-      console.log(state.formValues);
+      // console.log(state.formValues);
     },
 
     eventUpdated (state, obj) {

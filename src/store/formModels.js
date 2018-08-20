@@ -244,11 +244,6 @@ export const formModels = {
                     //       }`
                     // },
                     {
-<<<<<<< HEAD
-                        name: 'GreaterThan', 
-                        fields: ['p2-form1-tax'],
-                        template: 'Equals'
-=======
                         name: '验证父母年龄',
                         fields: ['p1-form1-text'],
                         codes: `
@@ -258,7 +253,6 @@ export const formModels = {
                               return $$.fail(0, '父母的年龄小于子女的年龄') 
                           }`,
                         baseChecks:['greaterThen']
->>>>>>> a23bf3b456626f99b3dcfb93c8cb51f5cf735f9c
                     }
                 ],
             },

@@ -33,7 +33,8 @@ export default {
 
     },
     onEvent (t, v) {
-      // console.log('事件', t, v);
+      console.log('事件', t, v);
+      this.$store.dispatch('eventUpdated', v);
       
     },
     render () {},
