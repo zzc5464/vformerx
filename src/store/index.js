@@ -22,7 +22,7 @@ function getData () {
 }
 
 
-function validate (callback, formValues, fieldValue, ...field) {
+function validate (callback, formValues, thisField, ...field) {
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
@@ -32,7 +32,11 @@ function validate (callback, formValues, fieldValue, ...field) {
       }
     }
 
-    return col === 0 ? fieldValue : getFieldValue(col - 1);
+    return col === 0 ? thisField.value : getFieldValue(col - 1);
+  }
+
+  $$.type = function () {
+    return thisField.type;
   }
 
   for (let i = 0; i <= field.length; i++) {
@@ -76,10 +80,44 @@ function mapFields (state, callback) {
   }
 }
 
+function findField(state, fieldName, callback) {
+  let parts = fieldName.split('-');
+  callback(state.formModels[parts[0]][parts[1]][parts[2]])
+}
+
+function findDependencies (formModels) {
+  let dependencies = {}
+
+  for (let mKey in formModels) {
+    for (let pKey in formModels[mKey]) {
+      for (let fKey in formModels[mKey][pKey]) {
+        let field = formModels[mKey][pKey][fKey]
+        let validators = field.validators || [];
+        validators.forEach(validator => {
+          let targetFields = validator.fields || []
+          targetFields.forEach(target => {
+            dependencies[target] = dependencies[target] || []
+            dependencies[target].push({
+              name: `${mKey}-${pKey}-${fKey}`,
+              validator: validator.name     
+            })
+          })
+        })
+      }
+    }
+  }
+
+  console.log(dependencies);
+
+  formModels.dependencies = dependencies;
+  return formModels;
+}
+
 const store = new Vuex.Store({
   state: {
-    formModels: formModels,
-    formValues: {}
+    formModels: findDependencies(formModels),
+    formValues: {},
+    fieldName: ''
   },
 
   mutations: {
@@ -93,17 +131,66 @@ const store = new Vuex.Store({
         field.value = v.value[key];
       }
 
-      mapFields(state, field => {
-        let validators = field.validators;
-        validators && validators.forEach((item) => {
-          let callback = eval(`$$ => {${item.codes}}`);
-          let ret = validate(callback, state.formValues, field.value, ...item.fields);
-          console.log(ret);
+      if (state.fieldName) {
+        let fieldName = `${v.name}-${state.fieldName}`;
+        let templates = state.formModels.templates;
+
+        console.log(`field: ${fieldName}`);
+
+        findField(state, fieldName, field => {
+  
+          let validators = field.validators || [];
+          validators && validators.forEach((item) => {
+
+            let callback;
+
+            if (item.template) {
+              callback = eval(`$$ => {${templates[item.template]}}`)
+            } else {
+              callback = eval(`$$ => {${item.codes}}`)
+            }
+
+            let ret = validate(callback, state.formValues, field, ...item.fields);
+            console.log(ret);
+          })
+
+          let dependencies = state.formModels.dependencies[fieldName] || [];
+          dependencies.forEach(dep => {
+            findField(state, dep.name, field => {
+              console.log(field)
+              let validators = field.validators || [];
+              validators.forEach(validator => {
+                if (validator.name === dep.validator) {
+                  let callback;
+
+                  if (validator.template) {
+                    callback = eval(`$$ => {${templates[validator.template]}}`)
+                  } else {
+                    callback = eval(`$$ => {${validator.codes}}`)
+                  }
+      
+                  let ret = validate(callback, state.formValues, field, ...validator.fields);
+                  console.log(ret);
+                }
+              })
+            })
+          })
         })
-      })
+      }
 
       console.log(state.formValues);
     },
+
+    eventUpdated (state, obj) {
+      console.log(obj);
+      state.fieldName = obj.v.name;
+    },
+
+    resetEventUpdated (state) {
+      console.log('clear cached fieldName');
+      state.fieldName = '';
+    },
+
     insert (state) {
       console.log('insert');
       let j = JSON.stringify(state.formModels['p1']['form1']);
@@ -116,6 +203,12 @@ const store = new Vuex.Store({
     },
     dataUpdated ({commit}, v) {
       commit('dataUpdated', v);
+    },
+    eventUpdated ({commit}, v) {
+      commit('eventUpdated', v);
+    },
+    resetEventUpdated ({commit}) {
+      commit('resetEventUpdated');
     }
   }
 })

@@ -1,9 +1,9 @@
 <template>
   <div>
     <tab>
-      <tab-item selected @on-item-click="pageName = 'p1'">已发货</tab-item>
-      <tab-item @on-item-click="pageName = 'p2'">未发货</tab-item>
-      <tab-item @on-item-click="pageName = 'p3'">全部订单</tab-item>
+      <tab-item selected @on-item-click="onItemClick('p1')">已发货</tab-item>
+      <tab-item @on-item-click="onItemClick('p2')">未发货</tab-item>
+      <tab-item @on-item-click="onItemClick('p3')">全部订单</tab-item>
     </tab>
     <form-unit v-for="(formModel, key) in formModels" :key="key" :name="pageName + '-' + key" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
     </form-unit>
@@ -27,10 +27,13 @@ export default {
     onChange (v) {
       this.$store.dispatch('dataUpdated', v);
     },
-    onItemClick () {
-
+    onItemClick (name) {
+      this.pageName = name;
+      this.$store.dispatch('resetEventUpdated');
     },
-    onEvent () {},
+    onEvent (t, v) {
+      this.$store.dispatch('eventUpdated', {t, v});
+    },
     render () {},
     onAddBtnClicked () {
       this.$store.dispatch('insert');
