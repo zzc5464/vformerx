@@ -120,7 +120,6 @@ const store = new Vuex.Store({
           item.baseChecks && item.baseChecks.forEach( (v,i) => {
             let callbackBaseChecks = eval(`$$ => {${baseChecks[v]}}`)
             let r = validate(callbackBaseChecks , state.formValues, field.value, ...item.fields)
-            console.log(r);
           })
         })
         // // fillers

@@ -135,6 +135,48 @@ export const baseChecks = {
         
     // `
 }
+/**
+ * 1. 根据验证表单生成反映射表
+ *  - 表名 field validators[验证名] 
+ * ```
+ * p1-form1-income : [验证名,验证名,验证名],
+ * p1-form1-text : [验证名,验证名,验证名],
+ * ```
+ * 2. 根据反映射表判断当前的验证是否需要执行
+ *   - 只验证改变的值
+ *   - 执行被改变值的验证函数
+ *   - 执行有关于它的验证函数名
+ */
+const fd = {
+    p1: {
+        f1: {
+            name: {
+                value: '',
+                rules: {},
+                validators:[
+                    {
+                        name:'nameV',
+                        fields: ['p1-f1-sex']
+                    }
+                ]
+            },
+            sex: {
+                value: '',
+                rules: {},
+                validators:[
+                    {
+                        name:'sexV',
+                        fields: ['p1-f1-name']
+                    }
+                ]
+            },
+        }
+    }
+}
+const dev = {
+    'p1-f1-name': ['sexV'],
+    'p1-f1-sex': ['nameV'],
+}
 export const formModels = {
     p1: {
         'form1': {
