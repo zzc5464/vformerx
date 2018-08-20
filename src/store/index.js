@@ -29,7 +29,7 @@ function getData () {
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
-function validate (callback, formValues, fieldValue, ...field) {
+function validate (callback, formValues, thisField, ...field) {
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
@@ -144,7 +144,14 @@ const store = new Vuex.Store({
   },
 
   mutations: {
-    dataUpdated (state, v) {
+    dataUpdated (state, obj) {
+      let v = obj.v;
+      let t = obj.t;
+
+      if (JSON.stringify(v.value) === '{}') {
+        return;
+      }
+
       for (let key in v.value) {
         state.formValues[`${v.name}-${key}`] = v.value[key];
 
@@ -153,8 +160,8 @@ const store = new Vuex.Store({
         field.value = v.value[key];
       }
 
-      if (state.fieldName) {
-        let fieldName = `${v.name}-${state.fieldName}`;
+      if (t) {
+        let fieldName = `${v.name}-${t}`;
         let templates = state.formModels.templates;
 
         console.log(`field: ${fieldName}`);
