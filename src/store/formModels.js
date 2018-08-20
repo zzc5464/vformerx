@@ -217,6 +217,7 @@ export const formModels = {
     //         }
     //     ]
     // },
+<<<<<<< HEAD
     formModels: {
         p1: {
             'form1': {
@@ -336,6 +337,71 @@ export const formModels = {
                 //     }
                 // },
 
+=======
+    p1: {
+        'form1': {
+            income: {
+                name: '父母年龄',
+                value: '',
+                type: 'string', // number / date / string / address
+                rules: {
+                    label: '父母',
+                    type: 'za-input',
+                    vRules: 'required',
+                    placeholder: '请输入',
+                    errorMsg: '父母年龄',
+                },
+                validators: [
+                    // {
+                    //     name: '验证父母年龄',
+                    //     fields: ['p2-form1-tax'],
+                    //     codes: `
+                    //       console.log($$.type(0));
+                    //       console.log($$.type(1));
+                    //       if ($$.number(0) > $$.number(1)) {
+                    //           return $$.pass()
+                    //       } else {
+                    //           return $$.fail(0, '父母的年龄小于子女的年龄') 
+                    //       }`
+                    // },
+                    {
+                        name: 'GreaterThan', 
+                        fields: ['p2-form1-D'],
+                        template: 'Equals'
+
+                    }
+                ],
+            },
+            self: {
+                value: '',
+                rules: {
+                    label: '本人',
+                    type: 'za-input',
+                    vRules: 'required|min:1|max:8',
+                    placeholder: '请输入',
+                    errorMsg: '本人年龄',
+                },
+            },
+            childen: {
+                value: '',
+                rules: {
+                    label: '子女',
+                    type: 'za-input',
+                    vRules: 'required|min:1|max:3',
+                    placeholder: '请输入',
+                    errorMsg: '子女年龄',
+                },
+                validators: [
+                    {
+                        name: '验证子女年龄',
+                        fields: ['p1-form1-self'],
+                        codes: `
+                            return $$.pass()
+                         `,
+                        baseChecks:['LessThen']
+                    }
+                ],
+>>>>>>> 4c35217fd3409632477bbfc119c1d960af1be681
             },
             'form2': {
 
