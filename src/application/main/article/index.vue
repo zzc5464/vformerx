@@ -24,15 +24,15 @@ export default {
     formUnit, Tab, TabItem
   },
   methods: {
-    onChange (v) {
-      this.$store.dispatch('dataUpdated', v);
+    onChange (v, t) {
+      this.$store.dispatch('dataUpdated', {v, t});
     },
     onItemClick (name) {
       this.pageName = name;
-      this.$store.dispatch('resetEventUpdated');
+      //this.$store.dispatch('resetEventUpdated');
     },
     onEvent (t, v) {
-      this.$store.dispatch('eventUpdated', {t, v});
+      //this.$store.dispatch('eventUpdated', {t, v});
     },
     render () {},
     onAddBtnClicked () {

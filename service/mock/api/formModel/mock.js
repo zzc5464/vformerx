@@ -101,40 +101,41 @@
    }
 };
  */
-export const baseChecks = {
-    // 相等
-    quals: `
-        if ($$.number(0) == $$.number(1)) {
-            return $$.pass()
-        } 
-        return $$.fail(0, '数据不相等') 
-    `,
-    // 不相等
-    notEquals: `
-        if ($$.number(0) != $$.number(1)) {
-            return $$.pass()
-        } 
-        return $$.fail(0, '数据相等') 
-    `,
-    // 大于
-    greaterThen: `
-        if ($$.number(0) > $$.number(1)) {
-            return $$.pass()
-        } 
-        return $$.fail(0, '必须大于') 
-    `,
-    // 小于
-    LessThen: `
-        if ($$.number(0) < $$.number(1)) {
-            return $$.pass()
-        } 
-        return $$.fail(0, '必须小于') 
-    `,
-    // // 等于(不分大小写)
-    // equalsIgnoreCase: `
+
+// export const baseChecks = {
+//     // 相等
+//     quals: `
+//         if ($$.number(0) == $$.number(1)) {
+//             return $$.pass()
+//         } 
+//         return $$.fail(0, '数据不相等') 
+//     `,
+//     // 不相等
+//     notEquals: `
+//         if ($$.number(0) != $$.number(1)) {
+//             return $$.pass()
+//         } 
+//         return $$.fail(0, '数据相等') 
+//     `,
+//     // 大于
+//     greaterThen: `
+//         if ($$.number(0) > $$.number(1)) {
+//             return $$.pass()
+//         } 
+//         return $$.fail(0, '必须大于') 
+//     `,
+//     // 小于
+//     LessThen: `
+//         if ($$.number(0) < $$.number(1)) {
+//             return $$.pass()
+//         } 
+//         return $$.fail(0, '必须小于') 
+//     `,
+//     // // 等于(不分大小写)
+//     // equalsIgnoreCase: `
         
-    // `
-}
+//     // `
+// }
 /**
  * 1. 根据验证表单生成反映射表
  *  - 表名 field validators[验证名] 
@@ -147,37 +148,46 @@ export const baseChecks = {
  *   - 执行被改变值的验证函数
  *   - 执行有关于它的验证函数名
  */
-const fd = {
-    p1: {
-        f1: {
-            name: {
-                value: '',
-                rules: {},
-                validators:[
-                    {
-                        name:'nameV',
-                        fields: ['p1-f1-sex']
-                    }
-                ]
-            },
-            sex: {
-                value: '',
-                rules: {},
-                validators:[
-                    {
-                        name:'sexV',
-                        fields: ['p1-f1-name']
-                    }
-                ]
-            },
-        }
+// const fd = {
+//     p1: {
+//         f1: {
+//             name: {
+//                 value: '',
+//                 rules: {},
+//                 validators:[
+//                     {
+//                         name:'nameV',
+//                         fields: ['p1-f1-sex']
+//                     }
+//                 ]
+//             },
+//             sex: {
+//                 value: '',
+//                 rules: {},
+//                 validators:[
+//                     {
+//                         name:'sexV',
+//                         fields: ['p1-f1-name']
+//                     }
+//                 ]
+//             },
+//         }
+//     }
+// }
+// const dev = {
+//     'p1-f1-name': ['sexV'],
+//     'p1-f1-sex': ['nameV'],
+// }
+
+const wrapper = function (value) {
+    return {
+        success: true,
+        errorMsg: '',
+        value
     }
 }
-const dev = {
-    'p1-f1-name': ['sexV'],
-    'p1-f1-sex': ['nameV'],
-}
-export const formModels = {
+
+const formModels = {
     templates: {        
         'Equals': `
             let ret = false
@@ -226,9 +236,9 @@ export const formModels = {
                 rules: {
                     label: '父母',
                     type: 'za-input',
-                    vRules: 'required',
+                    vRules: 'required|min:1|max:8',
                     placeholder: '请输入',
-                    errorMsg: '父母年龄',
+                    errorMsg: '请输入如何看待寿险营销',
                 },
                 validators: [
                     // {
@@ -245,20 +255,19 @@ export const formModels = {
                     // },
                     {
                         name: 'GreaterThan', 
-                        fields: ['p2-form1-D'],
+                        fields: ['p2-form1-tax'],
                         template: 'Equals'
-
                     }
                 ],
             },
-            self: {
+            text: {
                 value: '',
                 rules: {
                     label: '本人',
                     type: 'za-input',
                     vRules: 'required|min:1|max:8',
                     placeholder: '请输入',
-                    errorMsg: '本人年龄',
+                    errorMsg: '请输入',
                 },
             },
             childen: {
@@ -268,15 +277,12 @@ export const formModels = {
                     type: 'za-input',
                     vRules: 'required|min:1|max:3',
                     placeholder: '请输入',
-                    errorMsg: '子女年龄',
+                    errorMsg: '请输入',
                 },
                 validators: [
                     {
                         name: '验证子女年龄',
-                        fields: ['p1-form1-self'],
-                        codes: `
-                            return $$.pass()
-                         `,
+                        fields: ['p1-form1-text'],
                         baseChecks:['LessThen']
                     }
                 ],
@@ -519,3 +525,5 @@ export const formModels = {
         },
     }
 }
+
+module.exports = payload => wrapper(formModels)
