@@ -29,7 +29,7 @@ function getData () {
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
-function validate (callback, formValues, fieldValue, ...field) {
+function validate (callback, formValues, thisField, ...field) {
   
   function $$ (col) {
     function getFieldValue (col) {
@@ -62,8 +62,6 @@ function validate (callback, formValues, fieldValue, ...field) {
   }
   
   $$.fail = function (col, reason) {
-  console.log(fields, field[col])
-
     return {
       pass: false,
       field: field[col],
@@ -183,7 +181,7 @@ const store = new Vuex.Store({
           let dependencies = state.formModels.dependencies[fieldName] || [];
           dependencies.forEach(dep => {
             findField(state, dep.name, field => {
-              console.log(field)
+              // console.log(field)
               let validators = field.validators || [];
               validators.forEach(validator => {
                 if (validator.name === dep.validator) {
@@ -209,7 +207,7 @@ const store = new Vuex.Store({
     },
 
     eventUpdated (state, obj) {
-      console.log(obj);
+      // console.log(obj);
       state.fieldName = obj.v.name;
     },
 
