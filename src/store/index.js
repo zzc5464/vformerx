@@ -4,8 +4,8 @@ import * as types from './mutation-types'
 import axios from 'axios'
 import moduleA from './modules/moduleA'
 import moduleB from './modules/moduleB'
-
-import { formModels } from './formModels'
+import formModel from './modules/formModel'
+import { formModels, baseChecks } from './formModels'
 import { Func1 } from './validators'
 
 // import ui from './modules/ui'
@@ -22,7 +22,14 @@ function getData () {
 }
 
 
-function validate (callback, formValues, thisField, ...field) {
+/**
+ * 校验函数
+ * @param {callback} callback 执行配置中的校验代码
+ * @param {Object} formValues 被校验值
+ * @param {String|Number|Object} fieldValue 校验对比值
+ * @param {String} field 校验对象地址 tips: p2-form1-tax
+ */
+function validate (callback, formValues, fieldValue, ...field) {
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
@@ -38,7 +45,7 @@ function validate (callback, formValues, thisField, ...field) {
   $$.type = function () {
     return thisField.type;
   }
-
+  
   for (let i = 0; i <= field.length; i++) {
     if (typeof $$(i) === 'undefined') {
       return {
@@ -68,7 +75,23 @@ function validate (callback, formValues, thisField, ...field) {
 
   return callback($$);
 }
-
+/**
+ * 赋值函数
+ * @param {callback} callback 执行配置中的赋值代码
+ * @param {Object} formValues 基准值
+ * @param {String|Number|Object} fieldValue 修改值
+ * @param {String} field 赋值对象地址 tips: p2-form1-tax
+ */
+function filler (callback, formValues, fieldValue, ...field) {
+  console.log(callback, formValues, fieldValue, ...field);
+}
+/**
+ * 获取表格的field 对象
+ * @param {Object} state 
+ * vuex数据
+ * @param {callback} callback 
+ * 返回field的值
+ */
 function mapFields (state, callback) {
   let models = state.formModels;
   for (let mKey in models) {
@@ -122,7 +145,6 @@ const store = new Vuex.Store({
 
   mutations: {
     dataUpdated (state, v) {
-      console.log(v);
       for (let key in v.value) {
         state.formValues[`${v.name}-${key}`] = v.value[key];
 
@@ -210,6 +232,9 @@ const store = new Vuex.Store({
     resetEventUpdated ({commit}) {
       commit('resetEventUpdated');
     }
+  },
+  modules: {
+    formModel
   }
 })
 
