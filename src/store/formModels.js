@@ -219,12 +219,8 @@ export const formModels = {
     // },
     p1: {
         'form1': {
-<<<<<<< HEAD
-            parent: {
-=======
             income: {
                 name: '父母年龄',
->>>>>>> master
                 value: '',
                 type: 'string', // number / date / string / address
                 rules: {

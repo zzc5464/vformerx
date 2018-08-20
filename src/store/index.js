@@ -29,12 +29,8 @@ function getData () {
  * @param {String|Number|Object} fieldValue 校验对比值
  * @param {String} field 校验对象地址 tips: p2-form1-tax
  */
-<<<<<<< HEAD
-function validate (callback, formValues, fields, ...field) {
-=======
 function validate (callback, formValues, fieldValue, ...field) {
   
->>>>>>> master
   function $$ (col) {
     function getFieldValue (col) {
       if (field.length > col) {
@@ -44,16 +40,12 @@ function validate (callback, formValues, fieldValue, ...field) {
         return undefined
       }
     }
-<<<<<<< HEAD
-    return col === 0 ? fields.value : getFieldValue(col - 1);
-=======
 
     return col === 0 ? thisField.value : getFieldValue(col - 1);
   }
 
   $$.type = function () {
     return thisField.type;
->>>>>>> master
   }
   
   for (let i = 0; i <= field.length; i++) {
@@ -75,13 +67,8 @@ function validate (callback, formValues, fieldValue, ...field) {
     return {
       pass: false,
       field: field[col],
-<<<<<<< HEAD
-      errBag: fields.rules.errorMsg,
-      reason:  reason
-=======
       reason,
       thisField
->>>>>>> master
     }
   }
 
@@ -170,22 +157,6 @@ const store = new Vuex.Store({
         let field = state.formModels[sections[0]][sections[1]][key];
         field.value = v.value[key];
       }
-<<<<<<< HEAD
-      mapFields(state, field => {
-        // console.log('field ==>', field.rules.errorMsg)
-        
-        let validators = field.validators;
-        validators && validators.forEach((item) => {
-          let callback = eval(`$$ => {${item.codes}}`);
-          let ret = validate(callback, state.formValues, field, ...item.fields);
-
-          // console.log('ret', ret )
-          
-          item.baseChecks && item.baseChecks.forEach( (v,i) => {
-            let callbackBaseChecks = eval(`$$ => {${baseChecks[v]}}`)
-            let r = validate(callbackBaseChecks , state.formValues, field, ...item.fields)
-            // console.log(r.errBag + r.reason);
-=======
       if (state.fieldName) {
         let fieldName = `${v.name}-${state.fieldName}`;
         let templates = state.formModels.templates;
@@ -230,7 +201,6 @@ const store = new Vuex.Store({
                 }
               })
             })
->>>>>>> master
           })
         })
       }
