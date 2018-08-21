@@ -103,7 +103,7 @@ validators: [{
 #### 以上面代码为例，我们可以把每个元素的 validators 以及 fields 总结成一个验证关系表，如下：
 
 当前元素 | 验证规则 | 关联元素 
----|---|---|---|---
+---|---|---
 page1-form1-birthday | birthday | page2-form1-birthday 
 page1-form1-birthday | customized | page2-form1-name 
 page1-form2-birthday | birthday | page1-form1-birthday 
