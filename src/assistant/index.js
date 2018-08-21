@@ -13,10 +13,13 @@ function findFieldObject(state, field) {
     return state.formModels[field.page][field.form][field.name]
 }
 
-function validateField (callback, formValues, thisField, ...field) {
+function validateField (callback, formValues, thisField, info, ...field) {
     let values = [ thisField.value ];
 
     field.forEach(key => {
+        key.split(separator).length === 1
+            && (key = `${info.page}${separator}${info.form}${separator}${key}`)
+
         values.push(formValues[key]);
     });
 
@@ -35,10 +38,17 @@ function validateField (callback, formValues, thisField, ...field) {
     $$.fail = function (column, reason) {
         return {
             pass: false,
-            reason: reason
+            reason: thisField.rules.errorMsg + reason
         }
     }
-  
+    $$.stamp = function (column) {
+        return parseInt(Date.parse($$(column)))
+    }
+
+    $$.type = function () {
+        return thisField.type
+    }
+
     $$.pass = function () {
         return {
             pass: true
@@ -48,7 +58,7 @@ function validateField (callback, formValues, thisField, ...field) {
     return callback($$);
 }
 
-function executeValidator(state, validators, fieldObj, templates) {
+function executeValidator(state, validators, fieldObj, field, templates) {
     if (typeof validators === 'undefined') {
         return
     }
@@ -56,31 +66,12 @@ function executeValidator(state, validators, fieldObj, templates) {
     validators.forEach(v => {
         let codes = v.template ? `$$ => {${templates[v.template]}}` : `$$ => {${v.codes}}`
         let callback = eval(codes)
-        let result = validateField(callback, state.formValues, fieldObj, ...v.fields)
+        let result = validateField(callback, state.formValues, fieldObj, field, ...v.fields)
+        console.log(result);
         
-        console.log(result)
     })
 }
 
-function findDependenciesByField(models, obj, page, form, name) {
-    console.log(`${page}-${form}-${name}`)
-    let fieldObj = models[page][form][name];
-
-    console.log(fieldObj.validators)
-    (fieldObj.validators).forEach(vv => {
-        console.log(vv)
-    })
-
-    (fieldObj.validators || []).forEach(v => {
-        (v.fields || []).forEach(target => {
-            obj[target] = obj[target] || []
-            obj[target].push({
-                name: fullname({page, form, name}),
-                validator: v.name
-            })
-        })
-    })
-}
 
 function map(models, callback) {
     let obj = {};
@@ -98,9 +89,27 @@ function map(models, callback) {
     return obj;
 }
 
+function mapPage(models, page, form, callback) {
+    let obj = {};
+    // console.log(models);
+    // for (let form in models[page]) {
+        // console.log(models[page][form])
+        for (let name in models[page][form]) {
+            callback({
+                obj, models, page, form, name
+            })
+        }
+    // }
+
+    return obj;
+}
+
 function depend({obj, models, page, form, name}) {
     (models[page][form][name].validators || []).forEach(v => {
         (v.fields || []).forEach(target => {
+            target.split(separator).length === 1 
+                && (target = `${page}${separator}${form}${separator}${target}`)
+
             obj[target] = obj[target] || [];
             obj[target].push({
                 name: fullname({page, form, name}),
@@ -146,6 +155,23 @@ export function findDependencies(models) {
     })
 }
 
+export function updateDependencies(dependencies, models, pageName, formName) {
+    let dep = mapPage(models, pageName, formName, ({obj, models, page, form, name}) => {
+        depend({obj, models, page, form, name});
+    });
+
+    // console.log(dep)
+
+    for (let key in dep) {
+        if (dependencies[key]) {
+            dependencies[key] = [].concat.call(dependencies[key], dep[key]);
+            //dependencies[key] = dependencies.concat(dep[key]);
+        } else {
+            dependencies[key] = [].concat(dep[key]);
+        }
+    }
+}
+
 /**
  * @typedef {Object} Field
  * @property {string} page - 页名称
@@ -162,14 +188,19 @@ export function validate(state, field) {
     let templates = state.config.templates
     let fieldObj = findFieldObject(state.config, field)
 
-    executeValidator(state, fieldObj.validators, fieldObj, templates)
+    executeValidator(state, fieldObj.validators, fieldObj, field, templates)
 
     let dependencies = state.config.dependencies[fullname(field)];
     (dependencies || []).forEach(dep => {
         fieldObj = findFieldObjectByName(state.config, dep.name)
         let validators = fieldObj.validators || [];
 
+        let parts = dep.name.split(separator);
         executeValidator(state, 
-            validators.filter(v => v.name === dep.validator), fieldObj, templates)
+            validators.filter(v => v.name === dep.validator), fieldObj, {
+                page: parts[0],
+                form: parts[1],
+                name: parts[2]
+            }, templates)
     })
 }

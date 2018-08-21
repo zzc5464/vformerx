@@ -10,25 +10,23 @@ import * as assistant from '../assistant'
 Vue.use(Vuex)
 
 // 根据配置文件，创建规则依赖表
-let dep = assistant.findDependencies(config.formModels)
-config.dependencies = dep
+// let dep = assistant.findDependencies(config.formModels)
+// config.dependencies = dep
 
 const store = new Vuex.Store({
   state: {
-
-    config: config,
+    config: {},
     formValues: {}
-
   },
 
   mutations: {
     getFormModelConfig: (state, config) => {
-      
-      state.formModels = config
-      console.log('获取配置', state.formModels);
+      let dep = assistant.findDependencies(config.formModels)
+      config.dependencies = dep
+      // console.log(config.dependencies);
+      state.config = config
     },
     dataUpdated (state, obj) {
-
       let data = obj.v;
       let page = obj.page;
       let name = obj.t;
@@ -39,6 +37,7 @@ const store = new Vuex.Store({
       }
 
       assistant.save(state, page, data)
+
       assistant.validate(state, {
           page: page,
           form: data.name,
@@ -46,14 +45,27 @@ const store = new Vuex.Store({
       })
     },
 
-    insert (state) {
-      let j = JSON.stringify(state.formModels['p1']['form1']);
-      Vue.set(state.formModels.p1, 'form11', JSON.parse(j));
+    insert (state, {p,f}) {
+      let j = JSON.stringify(state.config.formModels[p][f]);
+      let insertF = ''
+      let templateFs = Object.keys(state.config.formModels[p]).filter( v =>  v.includes(f))
+      let i = 1
+      templateFs.forEach( v => {
+        if(v === f + i) {
+          i++
+        }
+        insertF = f + i
+      })
+      Vue.set(state.config.formModels.p1, insertF, JSON.parse(j));
+
+      assistant.updateDependencies(state.config.dependencies, state.config.formModels, p, insertF);
+      // console.log('updateDependencies');
+      console.log(state.config.dependencies)
     }
   },
   actions: {
-    insert ({ commit }) {
-      commit('insert');
+    insert ({ commit },obj) {
+      commit('insert',obj);
     },
     dataUpdated ({commit}, v) {
       commit('dataUpdated', v);

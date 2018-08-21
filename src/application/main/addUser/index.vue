@@ -8,22 +8,28 @@
     <za-title className="main-title" name="applicanttitle">
       投保人信息
     </za-title>
-    <form-unit name='p1-form1' :formModels="formModels['form1']" @formChange="onChange" @formEvent="onEvent">
+    <form-unit name='form1' :formModels="formModels['form1']" @formChange="onChange" @formEvent="onEvent">
 
     </form-unit>
     <za-title className="main-title" name="applicanttitle">
       被投保人信息
     </za-title>
-    <form-unit name='p1-form2' :formModels="formModels['form2']" >
+    <!-- <form-unit name='form2' :formModels="formModels['form2']" @formChange="onChange" >
+
+    </form-unit> -->
+    <form-unit v-for="(v,i) in copyFormModels" :key='i' :name='v' :formModels="formModels[v]" @formChange="onChange" >
 
     </form-unit>
-      <div class="btn-container" >
-        <div  class="weui-btn add">
-          <span class="icon-add-blue"></span>
-           <span class="vertivalm">添加被保人</span>
-        </div>
+    <!-- <p v-for="(v,i) in copyFormModels" :key='i'>
+      {{v}}
+    </p> -->
+    <div class="btn-container" @click='insertUser'>
+      <div  class="weui-btn add">
+        <span class="icon-add-blue"></span>
+          <span class="vertivalm">添加被保人</span>
       </div>
-    <!-- <button @click="onAddBtnClicked">ADD</button> -->
+    </div>
+    <div  class="btn-next"> 下一步</div>
   </div>
 </template>
 <script>
@@ -33,7 +39,8 @@ import { formUnit, Tab, TabItem, zaTitle} from "vformer"
 export default {
   data () {
     return {
-      pageName: 'p1'
+      pageName: 'p1',
+      copyFormModels: []
     };
   },
   components: {
@@ -41,7 +48,15 @@ export default {
   },
   methods: {
     onChange (v, t) {
-      this.$store.dispatch('dataUpdated', {v, t});
+      this.$store.dispatch('dataUpdated', {v, t, page: this.pageName});
+    },
+    insertUser() {
+      this.$store.dispatch({
+        type: 'insert',
+        p: 'p1',
+        f: 'form2'
+      });
+      this.renderCopyForm()
     },
     onItemClick (name) {
       this.pageName = name;
@@ -50,17 +65,13 @@ export default {
     onEvent (t, v) {
       //this.$store.dispatch('eventUpdated', {t, v});
     },
-    render () {
-      console.log(this.formModels);
-      
+    renderCopyForm () {
+      this.copyFormModels = Object.keys(this.$store.state.config.formModels[this.pageName]).filter( v => v.includes('form2'))
     },
-    onAddBtnClicked () {
-      this.$store.dispatch('insert');
-    }
   },
   computed: {
     formModels () {
-      return this.$store.state.formModels[this.pageName]
+      return this.$store.state.config.formModels[this.pageName]
     },
     count () {
       return this.$store.state.count
@@ -70,7 +81,7 @@ export default {
     }
   },
   created () {
-    this.render();
+    this.renderCopyForm()
   }
 };
 </script>
@@ -110,5 +121,23 @@ export default {
         border-radius: 8px;
         padding: 10px 0;
       }
+    }
+    //下一步按鈕样式
+    .btn-next{
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left:0;
+      width:100%;
+      height:45px;
+      line-height: 45px;
+      color: #fff;
+      text-align: center;
+      font-size: 17px;
+      z-index: 400;
+      background: -webkit-linear-gradient(left, #67a4ff, #0062e8); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #67a4ff, #0062e8); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #67a4ff, #0062e8); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right,#67a4ff, #0062e8); /* 标准的语法（必须放在最后） */
     }
 </style>
