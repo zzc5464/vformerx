@@ -44,3 +44,4 @@ export const ILOGIN = root + login
 export const IDEMO = path('/demo', true)
 export const ARTICLELIST = path('/article/list', true)
 export const FORMMODELCONFIG = path('/formModel/mock', true)
+export const ADDUSER = path('/formModel/addUser', true)
