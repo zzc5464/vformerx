@@ -1,40 +1,62 @@
-
 <template>
   <div>
-    <form-unit v-for="(formModel, key) in formModels" :key="key" :name="pageName + '-' + key" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
-      <template>
-        <za-title className="main-title" name="applicanttitle">
-          投保人信息
-        </za-title>
-	    </template>
+    <tab>
+      <tab-item selected @on-item-click="onItemClick('p1')">已发货</tab-item>
+      <tab-item @on-item-click="onItemClick('p2')">未发货</tab-item>
+      <tab-item @on-item-click="onItemClick('p3')">全部订单</tab-item>
+    </tab>
+    <za-title className="main-title" name="applicanttitle">
+      投保人信息
+    </za-title>
+    <form-unit name='p1-form1' :formModels="formModels['form1']" @formChange="onChange" @formEvent="onEvent">
+
     </form-unit>
+    <za-title className="main-title" name="applicanttitle">
+      被投保人信息
+    </za-title>
+    <form-unit name='p1-form2' :formModels="formModels['form2']" >
+
+    </form-unit>
+      <div class="btn-container" >
+        <div  class="weui-btn add">
+          <span class="icon-add-blue"></span>
+           <span class="vertivalm">添加被保人</span>
+        </div>
+      </div>
+    <!-- <button @click="onAddBtnClicked">ADD</button> -->
   </div>
 </template>
 <script>
-/**
- * 添加保险人信息尝试
- */
 import { ARTICLELIST } from "@/api"
 import * as types from "@/store/mutation-types"
-import { formUnit, Tab, TabItem } from "vformer"
+import { formUnit, Tab, TabItem, zaTitle} from "vformer"
 export default {
   data () {
     return {
-      pageName: 'p4'
+      pageName: 'p1'
     };
   },
   components: {
-    formUnit, Tab, TabItem
+    formUnit, Tab, TabItem, zaTitle
   },
   methods: {
-    onChange (v) {
-      this.$store.dispatch('dataUpdated', v);
+    onChange (v, t) {
+      this.$store.dispatch('dataUpdated', {v, t});
     },
-    onItemClick () {
-
+    onItemClick (name) {
+      this.pageName = name;
+      //this.$store.dispatch('resetEventUpdated');
     },
-    onEvent () {},
-    render () {},
+    onEvent (t, v) {
+      //this.$store.dispatch('eventUpdated', {t, v});
+    },
+    render () {
+      console.log(this.formModels);
+      
+    },
+    onAddBtnClicked () {
+      this.$store.dispatch('insert');
+    }
   },
   computed: {
     formModels () {
@@ -54,5 +76,39 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+  .btn-container {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      background-color: #ffffff;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      margin-top: 15px;
+      margin-bottom: 60px;
+      .btn-add {
+        color: #5697ff;
+        font-size: 17px;
+        background-color: #ffffff;
+        text-align: center;
+        display: block;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        border: 1px solid #ffffff;
+        .icon-add-blue {
+          margin-right: 2px;
+        }
+      }
+      .vertivalm{
+        vertical-align: middle;
+      }
+      .add{
+        width: 48%;
+        border: 1px solid #5697ff;
+        background-color: #ffffff;
+        color: #5697ff;
+        font-size: 16px;
+        border-radius: 8px;
+        padding: 10px 0;
+      }
+    }
 </style>

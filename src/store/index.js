@@ -15,18 +15,27 @@ config.dependencies = dep
 
 const store = new Vuex.Store({
   state: {
+
     config: config,
     formValues: {}
+
   },
 
   mutations: {
+    getFormModelConfig: (state, config) => {
+      
+      state.formModels = config
+      console.log('获取配置', state.formModels);
+    },
     dataUpdated (state, obj) {
+
       let data = obj.v;
       let page = obj.page;
       let name = obj.t;
 
       if (JSON.stringify(data.value) === '{}') {
           return;
+
       }
 
       assistant.save(state, page, data)
