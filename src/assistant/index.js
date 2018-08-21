@@ -103,9 +103,25 @@ function map(models, callback) {
     return obj;
 }
 
+function mapPage(models, page, callback) {
+    let obj = {};
+    for (let form in models[page]) {
+        for (let name in models[page][form]) {
+            callback({
+                obj, models, page, form, name
+            })
+        }
+    }
+
+    return obj;
+}
+
 function depend({obj, models, page, form, name}) {
     (models[page][form][name].validators || []).forEach(v => {
         (v.fields || []).forEach(target => {
+            target.split(separator).length === 1 
+                && (target = `${page}${separator}${form}${separator}${target}`)
+
             obj[target] = obj[target] || [];
             obj[target].push({
                 name: fullname({page, form, name}),
@@ -149,6 +165,20 @@ export function findDependencies(models) {
     return map(models, ({obj, models, page, form, name}) => {
         depend({obj, models, page, form, name});
     })
+}
+
+export function updateDependencies(dependencies, models, pageName) {
+    let dep = mapPage(models, pageName, ({obj, models, page, form, name}) => {
+        depend({obj, models, page, form, name});
+    });
+
+    for (let key in dep) {
+        if (dependencies[key]) {
+            dependencies[key].push(dep[key]);
+        } else {
+            dependencies[key] = [dep[key]];
+        }
+    }
 }
 
 /**

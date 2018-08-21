@@ -48,6 +48,8 @@ const store = new Vuex.Store({
       
       let j = JSON.stringify(state.config.formModels['p1']['form2']);
       Vue.set(state.config.formModels.p1, 'form3', JSON.parse(j));
+
+      assistant.updateDependencies(config.dependencies, config.formModels);
     }
   },
   actions: {

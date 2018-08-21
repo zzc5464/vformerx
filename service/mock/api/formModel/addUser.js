@@ -132,7 +132,7 @@ const formModels = {
 				validators: [
 					{
 					    name: '校验关系',
-					    fields: ['p1-form2-relation','p1-form1-name'],
+					    fields: ['relation','p1-form1-name'],
 							codes: `
 								if(!$$(1)) {
 									return $$.fail(0,'请选择与被保人关系!!!')
