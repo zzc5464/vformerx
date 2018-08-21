@@ -103,15 +103,17 @@ function map(models, callback) {
     return obj;
 }
 
-function mapPage(models, page, callback) {
+function mapPage(models, page, form, callback) {
     let obj = {};
-    for (let form in models[page]) {
+    // console.log(models);
+    // for (let form in models[page]) {
+        console.log(models[page][form])
         for (let name in models[page][form]) {
             callback({
                 obj, models, page, form, name
             })
         }
-    }
+    // }
 
     return obj;
 }
@@ -167,16 +169,19 @@ export function findDependencies(models) {
     })
 }
 
-export function updateDependencies(dependencies, models, pageName) {
-    let dep = mapPage(models, pageName, ({obj, models, page, form, name}) => {
+export function updateDependencies(dependencies, models, pageName, formName) {
+    let dep = mapPage(models, pageName, formName, ({obj, models, page, form, name}) => {
         depend({obj, models, page, form, name});
     });
 
+    console.log(dep)
+
     for (let key in dep) {
         if (dependencies[key]) {
-            dependencies[key].push(dep[key]);
+            dependencies[key] = [].concat.call(dependencies[key], dep[key]);
+            //dependencies[key] = dependencies.concat(dep[key]);
         } else {
-            dependencies[key] = [dep[key]];
+            dependencies[key] = [].concat(dep[key]);
         }
     }
 }

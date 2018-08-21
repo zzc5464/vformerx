@@ -23,6 +23,7 @@ const store = new Vuex.Store({
     getFormModelConfig: (state, config) => {
       let dep = assistant.findDependencies(config.formModels)
       config.dependencies = dep
+      console.log(config.dependencies);
       state.config = config
     },
     dataUpdated (state, obj) {
@@ -49,7 +50,9 @@ const store = new Vuex.Store({
       let j = JSON.stringify(state.config.formModels['p1']['form2']);
       Vue.set(state.config.formModels.p1, 'form3', JSON.parse(j));
 
-      assistant.updateDependencies(config.dependencies, config.formModels);
+      assistant.updateDependencies(state.config.dependencies, state.config.formModels, 'p1', 'form3');
+      console.log('updateDependencies');
+      console.log(state.config.dependencies)
     }
   },
   actions: {
