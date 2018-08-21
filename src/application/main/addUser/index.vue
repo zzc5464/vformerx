@@ -48,8 +48,6 @@ export default {
   },
   methods: {
     onChange (v, t) {
-      console.log('错误提示', v, t);
-      
       this.$store.dispatch('dataUpdated', {v, t, page: this.pageName});
     },
     insertUser() {

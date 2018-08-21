@@ -46,7 +46,7 @@ const formModels = {
 							ret = false
 							break;
 			}
-			return ret ? $$.pass() : $$.fail(0, '必须相等')
+			return ret ? $$.pass() : $$.fail(0, '必须相等(不分大小写)')
 		`,
 		// 不等于
 		'NotEquals': `
@@ -326,7 +326,7 @@ const formModels = {
 			return ret ? $$.pass() : $$.fail(0, '必须为空')
 		`,
 		// 不为空
-		'Null': `
+		'NotNull': `
 			let ret = false
 				switch ($$.type()) {
 						case 'number': 
@@ -409,6 +409,7 @@ const formModels = {
 				},
 				name: {
 					value: '',
+					type: 'string',
 					rules: {
 						label: '姓名',
 						type: 'za-input',
@@ -431,6 +432,16 @@ const formModels = {
 									return $$.pass()
 								}
 							`
+						},
+						{
+							name: 'name',
+							fields: ['p1-form1-name'],
+							template: 'Null'
+						},
+						{
+							name: 'name',
+							fields: ['p1-form1-name'],
+							template: 'NotNull'
 						},
 					],
 				},
@@ -489,11 +500,11 @@ const formModels = {
 						`
 					},
 					{
-						name: 'birthday',
-						fields: ['p1-form1-birthday'],
-						template: 'Equals'
+							name: 'birthday',
+							fields: ['p1-form1-birthday'],
+							template: 'Equals'
 					}
-				]
+					]
 				},
 			}
 		},

@@ -23,7 +23,7 @@ const store = new Vuex.Store({
     getFormModelConfig: (state, config) => {
       let dep = assistant.findDependencies(config.formModels)
       config.dependencies = dep
-      console.log(config.dependencies);
+      // console.log(config.dependencies);
       state.config = config
     },
     dataUpdated (state, obj) {
