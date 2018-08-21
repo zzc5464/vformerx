@@ -5,7 +5,7 @@
       <tab-item @on-item-click="onItemClick('p2')">未发货</tab-item>
       <tab-item @on-item-click="onItemClick('p3')">全部订单</tab-item>
     </tab>
-    <form-unit v-for="(formModel, key) in formModels" :key="key" :name="pageName + '-' + key" :formModels="formModel" @formChange="onChange" @formEvent="onEvent">
+    <form-unit v-for="(formModel, key) in formModels" :key="key" :name="key" :formModels="formModel" @formChange="onChange">
     </form-unit>
     <button @click="onAddBtnClicked">ADD</button>
   </div>
@@ -25,14 +25,10 @@ export default {
   },
   methods: {
     onChange (v, t) {
-      this.$store.dispatch('dataUpdated', {v, t});
+      this.$store.dispatch('dataUpdated', {v, t, page: this.pageName});
     },
     onItemClick (name) {
       this.pageName = name;
-      //this.$store.dispatch('resetEventUpdated');
-    },
-    onEvent (t, v) {
-      //this.$store.dispatch('eventUpdated', {t, v});
     },
     render () {},
     onAddBtnClicked () {
@@ -41,13 +37,7 @@ export default {
   },
   computed: {
     formModels () {
-      return this.$store.state.formModels[this.pageName]
-    },
-    count () {
-      return this.$store.state.count
-    },
-    countPlus () {
-      return this.$store.getters.countPlus
+      return this.$store.state.config.formModels[this.pageName]
     }
   },
   created () {
