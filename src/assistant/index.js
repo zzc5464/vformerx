@@ -38,7 +38,9 @@ function validateField (callback, formValues, thisField, ...field) {
             reason: reason
         }
     }
-  
+    $$.stamp = function (column) {
+        return parseInt(Date.parse($$(column)))
+    }
     $$.pass = function () {
         return {
             pass: true
@@ -57,8 +59,8 @@ function executeValidator(state, validators, fieldObj, templates) {
         let codes = v.template ? `$$ => {${templates[v.template]}}` : `$$ => {${v.codes}}`
         let callback = eval(codes)
         let result = validateField(callback, state.formValues, fieldObj, ...v.fields)
+        console.log(result);
         
-        console.log(result)
     })
 }
 

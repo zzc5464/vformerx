@@ -10,25 +10,22 @@ import * as assistant from '../assistant'
 Vue.use(Vuex)
 
 // 根据配置文件，创建规则依赖表
-let dep = assistant.findDependencies(config.formModels)
-config.dependencies = dep
+// let dep = assistant.findDependencies(config.formModels)
+// config.dependencies = dep
 
 const store = new Vuex.Store({
   state: {
-
-    config: config,
+    config: {},
     formValues: {}
-
   },
 
   mutations: {
     getFormModelConfig: (state, config) => {
-      
-      state.formModels = config
-      console.log('获取配置', state.formModels);
+      let dep = assistant.findDependencies(config.formModels)
+      config.dependencies = dep
+      state.config = config
     },
     dataUpdated (state, obj) {
-
       let data = obj.v;
       let page = obj.page;
       let name = obj.t;
@@ -47,8 +44,10 @@ const store = new Vuex.Store({
     },
 
     insert (state) {
-      let j = JSON.stringify(state.formModels['p1']['form1']);
-      Vue.set(state.formModels.p1, 'form11', JSON.parse(j));
+      console.log('state.config', state.config.formModels['p1']);
+      
+      let j = JSON.stringify(state.config.formModels['p1']['form2']);
+      Vue.set(state.config.formModels.p1, 'form3', JSON.parse(j));
     }
   },
   actions: {

@@ -38,10 +38,11 @@ const formModels = {
           }
       `
   },
+  formModels: {
   p1: {
 		form1: {
 			name: {
-						name: '父母年龄',
+						name: '自身年龄',
 						value: '',
 						type: 'string', // number / date / string / address
 						rules: {
@@ -64,11 +65,11 @@ const formModels = {
 								//           return $$.fail(0, '父母的年龄小于子女的年龄') 
 								//       }`
 								// },
-								{
-										name: 'GreaterThan', 
-										fields: ['p2-form1-tax'],
-										template: 'Equals'
-								}
+								// {
+								// 		name: 'GreaterThan', 
+								// 		fields: ['p2-form1-tax'],
+								// 		template: 'Equals'
+								// }
 						],
 				},
 			genderCode: {
@@ -127,7 +128,28 @@ const formModels = {
 					placeholder: '请输入姓名',
 					errorMsg: '请输入姓名',
 					readOnly:false
-				}
+				},
+				validators: [
+					{
+					    name: '校验关系',
+					    fields: ['p1-form2-relation','p1-form1-name'],
+							codes: `
+								if(!$$(1)) {
+									return $$.fail(0,'请选择与被保人关系!!!')
+								}
+								if($$(1) == '00' && $$(2) != $$(0)) {
+									return $$.fail(0,'选择本人姓名必须一致')
+								}else {
+									return $$.pass()
+								}
+							`
+					},
+					// {
+					// 		name: 'GreaterThan', 
+					// 		fields: ['p2-form1-tax'],
+					// 		template: 'Equals'
+					// }
+				],
 			},
 			genderCode: {
 				value: 'M',
@@ -138,7 +160,22 @@ const formModels = {
 					placeholder: '请选择',
 					errorMsg: '请输入性别',
 					readOnly:false
-				}
+				},
+				validators: [
+					{
+						name: '校验性别',
+						fields: ['p1-form1-genderCode','p1-form2-relation'],
+						codes: `
+							if($$(2) == '00' && $$(1) != $$(0)) {
+								return $$.fail(0,'选择为本人，性别必须相同!!!')
+							} else if($$(2) == '01' && $$(0) == $$(1)) {
+								return $$.fail(0,'性别相同,如何相爱!!!')
+							}else {
+								return $$.pass()
+							}
+						`
+					}
+				]
 			},
 			birthday: {
 				value: '1980-01-01',
@@ -151,12 +188,31 @@ const formModels = {
 					readOnly:false,
 					stime:'1940-01-01',
 					etime:'',
-				}
+				},
+				validators: [
+					{
+						name: '校验年龄',
+						fields: ['p1-form1-birthday','p1-form2-relation'],
+						codes: `
+							if($$(2) == '00' && $$.stamp(0) !== $$.stamp(1)) {
+								return $$.fail(0,'关系为本人，请修改生日')
+							}else if ($$(2) == '02' && $$.stamp(0) <= $$.stamp(1)) {
+								return $$.fail(0,'子女年龄必须小于自己')
+							}else if ($$(2) == '03' && $$.stamp(0) >= $$.stamp(1)) {
+								return $$.fail(0,'父母年龄必须大于自己')
+							}else {
+								return $$.pass()
+							}
+						`
+					}
+				]
 			},
 		}
   },
   // p2: {
   // }
+}
+
 }
 
 module.exports = payload => wrapper(formModels)
