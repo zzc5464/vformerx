@@ -38,7 +38,7 @@ function validateField (callback, formValues, thisField, info, ...field) {
     $$.fail = function (column, reason) {
         return {
             pass: false,
-            reason: reason
+            reason: thisField.rules.errorMsg + reason
         }
     }
     $$.stamp = function (column) {

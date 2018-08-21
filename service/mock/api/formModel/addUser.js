@@ -415,7 +415,7 @@ const formModels = {
 						type: 'za-input',
 						vRules: 'required|username|usernameLength',
 						placeholder: '请输入姓名',
-						errorMsg: '请输入姓名',
+						errorMsg: '姓名',
 						readOnly: false
 					},
 					validators: [
@@ -452,7 +452,7 @@ const formModels = {
 						type: 'za-sex',
 						vRules: 'required',
 						placeholder: '请选择',
-						errorMsg: '请输入性别',
+						errorMsg: '性别',
 						readOnly: false
 					},
 					validators: [
