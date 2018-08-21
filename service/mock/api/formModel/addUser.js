@@ -52,25 +52,6 @@ const formModels = {
 								placeholder: '请输入姓名',
 								errorMsg: '请输入姓名',
 						},
-						validators: [
-								// {
-								//     name: '姓名',
-								//     fields: ['p2-form1-tax'],
-								//     codes: `
-								//       console.log($$.type(0));
-								//       console.log($$.type(1));
-								//       if ($$.number(0) > $$.number(1)) {
-								//           return $$.pass()
-								//       } else {
-								//           return $$.fail(0, '父母的年龄小于子女的年龄') 
-								//       }`
-								// },
-								// {
-								// 		name: 'GreaterThan', 
-								// 		fields: ['p2-form1-tax'],
-								// 		template: 'Equals'
-								// }
-						],
 				},
 			genderCode: {
 					value: 'M',
@@ -144,11 +125,6 @@ const formModels = {
 								}
 							`
 					},
-					// {
-					// 		name: 'GreaterThan', 
-					// 		fields: ['p2-form1-tax'],
-					// 		template: 'Equals'
-					// }
 				],
 			},
 			genderCode: {
@@ -164,7 +140,7 @@ const formModels = {
 				validators: [
 					{
 						name: '校验性别',
-						fields: ['p1-form1-genderCode','p1-form2-relation'],
+						fields: ['p1-form2-genderCode','relation'],
 						codes: `
 							if($$(2) == '00' && $$(1) != $$(0)) {
 								return $$.fail(0,'选择为本人，性别必须相同!!!')
@@ -192,7 +168,7 @@ const formModels = {
 				validators: [
 					{
 						name: '校验年龄',
-						fields: ['p1-form1-birthday','relation'],
+						fields: ['birthday','relation'],
 						codes: `
 							if($$(2) == '00' && $$.stamp(0) !== $$.stamp(1)) {
 								return $$.fail(0,'关系为本人，请修改生日')
