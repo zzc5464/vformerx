@@ -67,25 +67,6 @@ function executeValidator(state, validators, fieldObj, field, templates) {
     })
 }
 
-function findDependenciesByField(models, obj, page, form, name) {
-    console.log(`${page}-${form}-${name}`)
-    let fieldObj = models[page][form][name];
-
-    console.log(fieldObj.validators)
-    (fieldObj.validators).forEach(vv => {
-        console.log(vv)
-    })
-
-    (fieldObj.validators || []).forEach(v => {
-        (v.fields || []).forEach(target => {
-            obj[target] = obj[target] || []
-            obj[target].push({
-                name: fullname({page, form, name}),
-                validator: v.name
-            })
-        })
-    })
-}
 
 function map(models, callback) {
     let obj = {};
@@ -209,7 +190,12 @@ export function validate(state, field) {
         fieldObj = findFieldObjectByName(state.config, dep.name)
         let validators = fieldObj.validators || [];
 
+        let parts = dep.name.split(separator);
         executeValidator(state, 
-            validators.filter(v => v.name === dep.validator), fieldObj, field, templates)
+            validators.filter(v => v.name === dep.validator), fieldObj, {
+                page: parts[0],
+                form: parts[1],
+                name: parts[2]
+            }, templates)
     })
 }

@@ -37,6 +37,7 @@ const store = new Vuex.Store({
       }
 
       assistant.save(state, page, data)
+
       assistant.validate(state, {
           page: page,
           form: data.name,
