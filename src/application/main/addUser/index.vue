@@ -17,6 +17,9 @@
     <form-unit name='form2' :formModels="formModels['form2']" @formChange="onChange" >
 
     </form-unit>
+    <form-unit  name='form3' :formModels="formModels['form3']" @formChange="onChange" >
+
+    </form-unit>
     <div class="btn-container" @click='insertUser'>
       <div  class="weui-btn add">
         <span class="icon-add-blue"></span>
