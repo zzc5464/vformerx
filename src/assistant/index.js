@@ -44,6 +44,11 @@ function validateField (callback, formValues, thisField, info, ...field) {
     $$.stamp = function (column) {
         return parseInt(Date.parse($$(column)))
     }
+
+    $$.type = function () {
+        return thisField.type
+    }
+
     $$.pass = function () {
         return {
             pass: true

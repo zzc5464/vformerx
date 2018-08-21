@@ -29,7 +29,7 @@
           <span class="vertivalm">添加被保人</span>
       </div>
     </div>
-    <!-- <button @click="onAddBtnClicked">ADD</button> -->
+    <div  class="btn-next"> 下一步</div>
   </div>
 </template>
 <script>
@@ -48,6 +48,8 @@ export default {
   },
   methods: {
     onChange (v, t) {
+      console.log('错误提示', v, t);
+      
       this.$store.dispatch('dataUpdated', {v, t, page: this.pageName});
     },
     insertUser() {
@@ -121,5 +123,23 @@ export default {
         border-radius: 8px;
         padding: 10px 0;
       }
+    }
+    //下一步按鈕样式
+    .btn-next{
+      display: block;
+      position: fixed;
+      bottom: 0;
+      left:0;
+      width:100%;
+      height:45px;
+      line-height: 45px;
+      color: #fff;
+      text-align: center;
+      font-size: 17px;
+      z-index: 400;
+      background: -webkit-linear-gradient(left, #67a4ff, #0062e8); /* Safari 5.1 - 6.0 */
+      background: -o-linear-gradient(right, #67a4ff, #0062e8); /* Opera 11.1 - 12.0 */
+      background: -moz-linear-gradient(right, #67a4ff, #0062e8); /* Firefox 3.6 - 15 */
+      background: linear-gradient(to right,#67a4ff, #0062e8); /* 标准的语法（必须放在最后） */
     }
 </style>

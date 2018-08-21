@@ -9,14 +9,14 @@ const wrapper = function (value) {
 const formModels = {
 	templates: {
 		'Equals': `
-          let ret = false
+					let ret = false
           switch ($$.type()) {
               case 'number': 
                   ret = parseInt($$(0)) === parseInt($$(1))
                   break
               case 'date':
                   let d1 = new Date($$(0))
-                  let d2 = new Date($$(1))
+									let d2 = new Date($$(1))
                   ret = d1.getTime() === d2.getTime()
                   break
               case 'string':
@@ -26,7 +26,6 @@ const formModels = {
                   ret = false
                   break;
           }
-
           return ret ? $$.pass() : $$.fail(0, '必须相等于')
       `,
 
@@ -155,6 +154,7 @@ const formModels = {
 				},
 				birthday: {
 					value: '1980-01-01',
+					type: 'date',
 					rules: {
 						label: '出生日期',
 						type: 'za-date',
@@ -179,7 +179,13 @@ const formModels = {
 								return $$.pass()
 							}
 						`
-					}]
+					},
+					{
+						name: 'birthday',
+						fields: ['p1-form1-birthday'],
+						template: 'Equals'
+					}
+				]
 				},
 			}
 		},
