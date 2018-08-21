@@ -107,7 +107,7 @@ function mapPage(models, page, form, callback) {
     let obj = {};
     // console.log(models);
     // for (let form in models[page]) {
-        console.log(models[page][form])
+        // console.log(models[page][form])
         for (let name in models[page][form]) {
             callback({
                 obj, models, page, form, name
@@ -174,7 +174,7 @@ export function updateDependencies(dependencies, models, pageName, formName) {
         depend({obj, models, page, form, name});
     });
 
-    console.log(dep)
+    // console.log(dep)
 
     for (let key in dep) {
         if (dependencies[key]) {

@@ -44,20 +44,27 @@ const store = new Vuex.Store({
       })
     },
 
-    insert (state) {
-      console.log('state.config', state.config.formModels['p1']);
-      
-      let j = JSON.stringify(state.config.formModels['p1']['form2']);
-      Vue.set(state.config.formModels.p1, 'form3', JSON.parse(j));
+    insert (state, {p,f}) {
+      let j = JSON.stringify(state.config.formModels[p][f]);
+      let insertF = ''
+      let templateFs = Object.keys(state.config.formModels[p]).filter( v =>  v.includes(f))
+      let i = 1
+      templateFs.forEach( v => {
+        if(v === f + i) {
+          i++
+        }
+        insertF = f + i
+      })
+      Vue.set(state.config.formModels.p1, insertF, JSON.parse(j));
 
-      assistant.updateDependencies(state.config.dependencies, state.config.formModels, 'p1', 'form3');
-      console.log('updateDependencies');
+      assistant.updateDependencies(state.config.dependencies, state.config.formModels, p, insertF);
+      // console.log('updateDependencies');
       console.log(state.config.dependencies)
     }
   },
   actions: {
-    insert ({ commit }) {
-      commit('insert');
+    insert ({ commit },obj) {
+      commit('insert',obj);
     },
     dataUpdated ({commit}, v) {
       commit('dataUpdated', v);

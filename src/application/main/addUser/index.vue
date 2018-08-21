@@ -14,12 +14,15 @@
     <za-title className="main-title" name="applicanttitle">
       被投保人信息
     </za-title>
-    <form-unit name='form2' :formModels="formModels['form2']" @formChange="onChange" >
+    <!-- <form-unit name='form2' :formModels="formModels['form2']" @formChange="onChange" >
+
+    </form-unit> -->
+    <form-unit v-for="(v,i) in copyFormModels" :key='i' :name='v' :formModels="formModels[v]" @formChange="onChange" >
 
     </form-unit>
-    <form-unit  name='form3' :formModels="formModels['form3']" @formChange="onChange" >
-
-    </form-unit>
+    <!-- <p v-for="(v,i) in copyFormModels" :key='i'>
+      {{v}}
+    </p> -->
     <div class="btn-container" @click='insertUser'>
       <div  class="weui-btn add">
         <span class="icon-add-blue"></span>
@@ -36,7 +39,8 @@ import { formUnit, Tab, TabItem, zaTitle} from "vformer"
 export default {
   data () {
     return {
-      pageName: 'p1'
+      pageName: 'p1',
+      copyFormModels: []
     };
   },
   components: {
@@ -47,7 +51,12 @@ export default {
       this.$store.dispatch('dataUpdated', {v, t, page: this.pageName});
     },
     insertUser() {
-      this.$store.dispatch('insert');
+      this.$store.dispatch({
+        type: 'insert',
+        p: 'p1',
+        f: 'form2'
+      });
+      this.renderCopyForm()
     },
     onItemClick (name) {
       this.pageName = name;
@@ -56,7 +65,8 @@ export default {
     onEvent (t, v) {
       //this.$store.dispatch('eventUpdated', {t, v});
     },
-    render () {
+    renderCopyForm () {
+      this.copyFormModels = Object.keys(this.$store.state.config.formModels[this.pageName]).filter( v => v.includes('form2'))
     },
   },
   computed: {
@@ -71,7 +81,7 @@ export default {
     }
   },
   created () {
-    this.render();
+    this.renderCopyForm()
   }
 };
 </script>
