@@ -264,7 +264,7 @@ validators: [{
 }, {
     name: 'customized',
     fields: ['page2-form1-name'],
-    coodes: `
+    codes: `
         return $$.number(0) > $$.number(1) ? 
             $$.pass() : $$.fail(0, '必须大于')
     `

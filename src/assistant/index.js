@@ -13,10 +13,13 @@ function findFieldObject(state, field) {
     return state.formModels[field.page][field.form][field.name]
 }
 
-function validateField (callback, formValues, thisField, ...field) {
+function validateField (callback, formValues, thisField, info, ...field) {
     let values = [ thisField.value ];
 
     field.forEach(key => {
+        key.split(separator).length === 1
+            && (key = `${info.page}${separator}${info.form}${separator}${key}`)
+
         values.push(formValues[key]);
     });
 
@@ -50,7 +53,7 @@ function validateField (callback, formValues, thisField, ...field) {
     return callback($$);
 }
 
-function executeValidator(state, validators, fieldObj, templates) {
+function executeValidator(state, validators, fieldObj, field, templates) {
     if (typeof validators === 'undefined') {
         return
     }
@@ -58,7 +61,7 @@ function executeValidator(state, validators, fieldObj, templates) {
     validators.forEach(v => {
         let codes = v.template ? `$$ => {${templates[v.template]}}` : `$$ => {${v.codes}}`
         let callback = eval(codes)
-        let result = validateField(callback, state.formValues, fieldObj, ...v.fields)
+        let result = validateField(callback, state.formValues, fieldObj, field, ...v.fields)
         console.log(result);
         
     })
@@ -164,7 +167,7 @@ export function validate(state, field) {
     let templates = state.config.templates
     let fieldObj = findFieldObject(state.config, field)
 
-    executeValidator(state, fieldObj.validators, fieldObj, templates)
+    executeValidator(state, fieldObj.validators, fieldObj, field, templates)
 
     let dependencies = state.config.dependencies[fullname(field)];
     (dependencies || []).forEach(dep => {
@@ -172,6 +175,6 @@ export function validate(state, field) {
         let validators = fieldObj.validators || [];
 
         executeValidator(state, 
-            validators.filter(v => v.name === dep.validator), fieldObj, templates)
+            validators.filter(v => v.name === dep.validator), fieldObj, field, templates)
     })
 }

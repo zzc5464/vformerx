@@ -192,7 +192,7 @@ const formModels = {
 				validators: [
 					{
 						name: '校验年龄',
-						fields: ['p1-form1-birthday','p1-form2-relation'],
+						fields: ['p1-form1-birthday','relation'],
 						codes: `
 							if($$(2) == '00' && $$.stamp(0) !== $$.stamp(1)) {
 								return $$.fail(0,'关系为本人，请修改生日')
